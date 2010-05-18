@@ -3,12 +3,20 @@
 <html>
  <head>
   <title>HTML_QuickForm2_Element_Captcha demo</title>
+  <style type="text/css">
+span.error {
+  color: red;
+}
+div.element.error input {
+  background-color: #FAA;
+}
+  </style>
  </head>
  <body>
 <?php
 require_once 'HTML/QuickForm2.php';
 require_once 'HTML/QuickForm2/Renderer.php';
-require_once 'Captcha.php';
+require_once '../HTML/QuickForm2/Element/Captcha.php';
 
 HTML_QuickForm2_Factory::registerElement(
     'captcha',

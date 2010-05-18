@@ -16,7 +16,23 @@ require_once 'Text/CAPTCHA/Numeral.php';
 require_once 'HTML/QuickForm2/Element/InputText.php';
 
 /**
- * Captcha element to tell computers and humans apart.
+ * Captcha element or QuickForm2:
+ * Completely Automated Public Turing test to tell Computers and Humans Apart.
+ * Used as anti-spam measure.
+ *
+ * Features:
+ * - Support for different CAPTCHA types:
+ *   - numeric captchas (solve mathematical equations)
+ *   - ReCAPTCHA (online service to scan books)
+ *   - Figlet (ASCII art)
+ * - Multiple forms on the same page may have captcha elements
+ *   with the same name
+ * - Once a captcha in a form is solved, it stays that way until
+ *   the form is valid. No need to re-solve a captcha because you
+ *   forgot a required field!
+ * - Stable captcha: Question stays the same if you do not solve it
+ *   correctly the first time
+ * - Customizable status messages i.e. when captcha is solved
  *
  * @category HTML
  * @package  HTML_QuickForm2
@@ -28,6 +44,7 @@ require_once 'HTML/QuickForm2/Element/InputText.php';
  * - session storage adapter?
  * - support for recaptcha, normal captcha, figlet
  * - frozen HTML
+ * - clear session when form is valid
  */
 class HTML_QuickForm2_Element_Captcha
     extends HTML_QuickForm2_Element_Input

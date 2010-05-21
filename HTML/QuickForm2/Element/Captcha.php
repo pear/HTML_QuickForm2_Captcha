@@ -34,6 +34,10 @@ require_once 'HTML/QuickForm2/Element/InputText.php';
  *   correctly the first time
  * - Customizable status messages i.e. when captcha is solved
  *
+ * When the form is valid and accepted, use clearCaptchaSession()
+ * to destroy the captcha question and answer. Otherwise the
+ * form catpcha is seend as already solved for the user.
+ *
  * @category HTML
  * @package  HTML_QuickForm2
  * @author   Christian Weiske <cweiske@php.net>
@@ -44,7 +48,7 @@ require_once 'HTML/QuickForm2/Element/InputText.php';
  * - session storage adapter?
  * - support for recaptcha, normal captcha, figlet
  * - frozen HTML
- * - clear session when form is valid
+ * - clear session when form is valid / destroy captcha
  */
 class HTML_QuickForm2_Element_Captcha
     extends HTML_QuickForm2_Element_Input
@@ -238,7 +242,7 @@ class HTML_QuickForm2_Element_Captcha
 
 
     /**
-     * Clears all captcha session data, so that the previously solved
+     * Destroys all captcha session data, so that the previously solved
      * captcha re-appears as unsolved. Question and answers are discarded
      * as well.
      *

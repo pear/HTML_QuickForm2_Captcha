@@ -12,7 +12,6 @@
  * @link     http://pear.php.net/package/HTML_QuickForm2
  */
 
-require_once 'Text/CAPTCHA/Numeral.php';
 require_once 'HTML/QuickForm2/Element/InputText.php';
 
 /**
@@ -50,7 +49,7 @@ require_once 'HTML/QuickForm2/Element/InputText.php';
  * - frozen HTML
  * - clear session when form is valid / destroy captcha
  */
-class HTML_QuickForm2_Element_Captcha
+abstract class HTML_QuickForm2_Element_Captcha
     extends HTML_QuickForm2_Element_Input
 {
     /**
@@ -161,10 +160,12 @@ class HTML_QuickForm2_Element_Captcha
                 = $_SESSION[$varname]['solved'];
              return;
         }
-        
-        $cn = new Text_CAPTCHA_Numeral();
-        $this->capQuestion = $cn->getOperation();
-        $this->capAnswer   = $cn->getAnswer();
+
+        list(
+            $this->capQuestion,
+            $this->capAnswer
+        ) = $this->generateCaptchaQA();
+
         $this->capSolved   = false;
         $_SESSION[$varname] = array(
             'question' => $this->capQuestion,
@@ -172,6 +173,16 @@ class HTML_QuickForm2_Element_Captcha
             'solved'   => $this->capSolved
         );
     }
+
+
+
+    /**
+     * Returns an array with captcha question and captcha answer
+     *
+     * @return array Array with first value the captcha question
+     *               and the second one the captcha answer.
+     */
+    abstract protected function generateCaptchaQA();
 
 
 

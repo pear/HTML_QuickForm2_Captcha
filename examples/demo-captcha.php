@@ -14,13 +14,17 @@ div.element.error input {
  </head>
  <body>
 <?php
+set_include_path(
+    '../'
+    . ':' . get_include_path()
+);
 require_once 'HTML/QuickForm2.php';
 require_once 'HTML/QuickForm2/Renderer.php';
-require_once '../HTML/QuickForm2/Element/Captcha.php';
+require_once '../HTML/QuickForm2/Element/NumeralCaptcha.php';
 
 HTML_QuickForm2_Factory::registerElement(
-    'captcha',
-    'HTML_QuickForm2_Element_Captcha'
+    'numeralcaptcha',
+    'HTML_QuickForm2_Element_NumeralCaptcha'
 );
 
 $form = new HTML_QuickForm2(
@@ -30,7 +34,7 @@ $form = new HTML_QuickForm2(
 );
 
 $form->addElement(
-    'captcha', 'captchaelem',
+    'numeralcaptcha', 'captchaelem',
     array(
         'id'   => 'captchavalue',
     )
@@ -64,7 +68,7 @@ $form = new HTML_QuickForm2(
 );
 
 $form->addElement(
-    'captcha', 'captchaelem',
+    'numeralcaptcha', 'captchaelem',
     array(
         'id'   => 'captchavalue',
     )

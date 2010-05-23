@@ -111,6 +111,7 @@ class HTML_QuickForm2_Element_NumeralCaptcha
         } else if ($this->capAnswer != $userSolution) {
             return false;
         } else {
+            $this->capSolved = true;
             $_SESSION[$this->getSessionVarName()]['solved'] = true;
             return true;
         }

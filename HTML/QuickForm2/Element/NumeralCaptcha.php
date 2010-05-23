@@ -32,25 +32,6 @@ require_once 'HTML/QuickForm2/Element/Captcha.php';
 class HTML_QuickForm2_Element_NumeralCaptcha
     extends HTML_QuickForm2_Element_Captcha
 {
-
-    /**
-     * Captcha question. Automatically stored in session
-     * to make sure the user gets the same captcha every time.
-     *
-     * @var string
-     */
-    protected $capQuestion = null;
-
-    /**
-     * Answer to the captcha question.
-     * The user must input this value.
-     *
-     * @var string
-     */
-    protected $capAnswer = null;
-
-
-
     /**
      * Generates the captcha question and answer and prepares the
      * session data.
@@ -64,16 +45,13 @@ class HTML_QuickForm2_Element_NumeralCaptcha
     {
         $varname = $this->getSessionVarName();
         if (!parent::generateCaptcha()) {
-            $this->capQuestion = $_SESSION[$varname]['question'];
-            $this->capAnswer   = $_SESSION[$varname]['answer'];
             return false;
         }
 
         $cn = new Text_CAPTCHA_Numeral();
-        $this->capQuestion = $cn->getOperation();
-        $this->capAnswer   = $cn->getAnswer();
-        $_SESSION[$varname]['question'] = $this->capQuestion;
-        $_SESSION[$varname]['answer']   = $this->capAnswer;
+        $this->getSession()->question = $cn->getOperation();
+        $this->getSession()->answer   = $cn->getAnswer();
+
         return true;
     }
 
@@ -82,7 +60,7 @@ class HTML_QuickForm2_Element_NumeralCaptcha
     /**
      * Checks if the captcha is solved now.
      * Uses $capSolved variable or user input, which is compared
-     * with the pre-set correct answer in $capAnswer.
+     * with the pre-set correct answer.
      *
      * Calls generateCaptcha() if it has not been called before.
      *
@@ -90,7 +68,6 @@ class HTML_QuickForm2_Element_NumeralCaptcha
      * is set so that the captcha is seen as completed across
      * form submissions.
      *
-     * @uses $capAnswer
      * @uses $capGenerated
      * @uses generateCaptcha()
      *
@@ -105,14 +82,13 @@ class HTML_QuickForm2_Element_NumeralCaptcha
 
         //verify given answer with our answer
         $userSolution = $this->getValue();
-        if ($this->capAnswer === null) {
+        if ($this->getSession()->answer === null) {
             //no captcha answer?
             return false;
-        } else if ($this->capAnswer != $userSolution) {
+        } else if ($this->getSession()->answer != $userSolution) {
             return false;
         } else {
-            $this->capSolved = true;
-            $_SESSION[$this->getSessionVarName()]['solved'] = true;
+            $this->getSession()->solved = true;
             return true;
         }
     }
@@ -137,7 +113,7 @@ class HTML_QuickForm2_Element_NumeralCaptcha
                 . self::getAttributesString(
                     $this->data['captchaHtmlAttributes']
                 ) . '>'
-                . $this->capQuestion
+                . $this->getSession()->question
                 . '</div>';
         }
         return $prefix

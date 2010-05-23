@@ -74,8 +74,7 @@ class HTML_QuickForm2_Element_ReCaptcha
         }
 
         if ($this->getReCaptcha()->validate()) {
-            $_SESSION[$this->getSessionVarName()]['solved'] = true;
-            $this->capSolved = true;
+            $this->getSession()->solved = true;
             return true;
         }
 

@@ -35,7 +35,7 @@ HTML_QuickForm2_Factory::registerElement(
 $form = new HTML_QuickForm2(
     'captchaform1', 'post',
     array(),
-    false//change to true to use special ID
+    false//change to true to use special ID in POST data
 );
 
 $form->addElement(

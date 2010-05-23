@@ -13,6 +13,7 @@
  */
 
 require_once 'HTML/QuickForm2/Element/InputText.php';
+require_once 'HTML/QuickForm2/Element/Captcha/Session.php';
 
 /**
  * Base class for captcha elements for QuickForm2:
@@ -46,12 +47,6 @@ require_once 'HTML/QuickForm2/Element/InputText.php';
 abstract class HTML_QuickForm2_Element_Captcha
     extends HTML_QuickForm2_Element_Input
 {
-    /**
-     * Array of input element attributes, with some predefined values
-     *
-     * @var array
-     */
-    protected $attributes = array('size' => 5);
 
     /**
      * Prefix for session variable used to store captcha
@@ -62,11 +57,11 @@ abstract class HTML_QuickForm2_Element_Captcha
     protected $sessionPrefix = '_qf2_captcha_';
 
     /**
-     * If the captcha has been solved yet.
+     * Array of input element attributes, with some predefined values
      *
-     * @var boolean
+     * @var array
      */
-    protected $capSolved = false;
+    protected $attributes = array('size' => 5);
 
     /**
      * If the captcha has been generated and initialized already
@@ -74,6 +69,13 @@ abstract class HTML_QuickForm2_Element_Captcha
      * @var boolean
      */
     protected $capGenerated = false;
+
+    /**
+     * Session object to store captcha data and solutions in.
+     *
+     * @var HTML_QuickForm2_Element_Captcha_Session
+     */
+    protected $session = null;
 
 
 
@@ -120,27 +122,15 @@ abstract class HTML_QuickForm2_Element_Captcha
      */
     protected function generateCaptcha()
     {
-        if (session_id() == '') {
-            //Session has not been started yet. That's not acceptable
-            // and breaks captcha answer storage
-            throw new HTML_QuickForm2_Exception(
-                'Session must be started'
-            );
-        }
-
+        $this->getSession()->init();
         $this->capGenerated = true;
-        $varname = $this->getSessionVarName();
-        if (isset($_SESSION[$varname])) {
+
+        if ($this->getSession()->hasData()) {
             //data exist already, use them
-            $this->capSolved
-                = $_SESSION[$varname]['solved'];
-             return false;
+            return false;
         }
 
-        $this->capSolved   = false;
-        $_SESSION[$varname] = array(
-            'solved'   => $this->capSolved
-        );
+        $this->getSession()->solved = false;
 
         return true;
     }
@@ -172,12 +162,43 @@ abstract class HTML_QuickForm2_Element_Captcha
 
 
     /**
+     * Returns the captcha session object
+     *
+     * @return HTML_QuickForm2_Element_Captcha_Session Session object
+     */
+    public function getSession()
+    {
+        if ($this->session === null) {
+            $this->session = new HTML_QuickForm2_Element_Captcha_Session(
+                $this->getSessionVarName()
+            );
+        }
+        return $this->session;
+    }
+
+
+
+    /**
+     * Sets a new session object.
+     * Useful for providing own session storage methods.
+     *
+     * @param HTML_QuickForm2_Element_Captcha_Session $session Session object
+     *
+     * @return void
+     */
+    public function setSession(HTML_QuickForm2_Element_Captcha_Session $session)
+    {
+        $this->session = $session;
+    }
+
+
+
+    /**
      * Checks if the captcha is solved now.
      * Checks the session.
      *
      * Calls generateCaptcha() if it has not been called before.
      *
-     * @uses $capSolved
      * @uses generateCaptcha()
      *
      * @return boolean True if the captcha is solved
@@ -188,7 +209,7 @@ abstract class HTML_QuickForm2_Element_Captcha
             $this->generateCaptcha();
         }
 
-        if ($this->capSolved === true) {
+        if ($this->getSession()->solved === true) {
             return true;
         }
 
@@ -206,10 +227,7 @@ abstract class HTML_QuickForm2_Element_Captcha
      */
     public function clearCaptchaSession()
     {
-        $varname = $this->getSessionVarName();
-        if (isset($_SESSION[$varname])) {
-            unset($_SESSION[$varname]);
-        }
+        $this->getSession()->clear();
     }
 
 

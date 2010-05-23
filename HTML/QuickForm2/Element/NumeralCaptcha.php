@@ -19,6 +19,9 @@ require_once 'HTML/QuickForm2/Element/Captcha.php';
  * Numeral Captcha element for QuickForm2.
  * Asks mathematical questions like "32 + 5".
  *
+ * In case you need to customize the numeral options,
+ * use getNumeral() and modify that object.
+ *
  * Features:
  * - Stable captcha: Question stays the same if you do not solve it
  *   correctly the first time
@@ -29,13 +32,36 @@ require_once 'HTML/QuickForm2/Element/Captcha.php';
  * @license  http://opensource.org/licenses/bsd-license.php New BSD License
  * @link     http://pear.php.net/package/HTML_QuickForm2
  * @see      http://pear.php.net/package/Text_CAPTCHA_Numeral
- *
- * @FIXME/@TODO
- * - set custom numeral object
  */
 class HTML_QuickForm2_Element_NumeralCaptcha
     extends HTML_QuickForm2_Element_Captcha
 {
+    /**
+     * Captcha generator
+     *
+     * @var Text_CAPTCHA_Numeral
+     */
+    protected $numeral = null;
+
+
+
+    /**
+     * Returns the Text_CAPTCHA_Numeral object used for
+     * generating question and answer.
+     * Useful for changing options.
+     *
+     * @return Text_CAPTCHA_Numeral Captcha generator
+     */
+    public function getNumeral()
+    {
+        if ($this->numeral === null) {
+            $this->numeral = new Text_CAPTCHA_Numeral();
+        }
+        return $this->numeral;
+    }
+
+
+
     /**
      * Generates the captcha question and answer and prepares the
      * session data.
@@ -52,7 +78,7 @@ class HTML_QuickForm2_Element_NumeralCaptcha
             return false;
         }
 
-        $cn = new Text_CAPTCHA_Numeral();
+        $cn = $this->getNumeral();
         $this->getSession()->question = $cn->getOperation();
         $this->getSession()->answer   = $cn->getAnswer();
 

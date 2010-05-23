@@ -36,19 +36,21 @@ class HTML_QuickForm2_Element_Captcha_Session
 
 
     /**
-     * Creates a new QuickForm2 session object
+     * Initializes the captcha session.
+     * Separate from __construct() because the variable name
+     * of a form element may change its ID until the form gets
+     * used.
      *
      * @param string $varname Variable name to use
+     *
+     * @return void
+     *
+     * @throws HTML_QuickForm2_Exception When the session has not been started
      */
-    public function __construct($varname)
+    public function init($varname)
     {
         $this->varname = $varname;
-    }
 
-
-
-    public function init()
-    {
         if (session_id() == '') {
             //Session has not been started yet. That's not acceptable
             // and breaks captcha answer storage
@@ -60,6 +62,11 @@ class HTML_QuickForm2_Element_Captcha_Session
 
 
 
+    /**
+     * Clears the data stored in this session.
+     *
+     * @return void
+     */
     public function clear()
     {
         if ($this->hasData()) {
@@ -72,25 +79,12 @@ class HTML_QuickForm2_Element_Captcha_Session
     /**
      * If the session already has data
      *
-     * @return boolean True if there are data, false if the session has not been used yet.
+     * @return boolean True if there are data, false if the session
+     *                 has not been used yet.
      */
     public function hasData()
     {
         return isset($_SESSION[$this->varname]);
-    }
-
-
-
-    public function isSolved()
-    {
-        return $this->solved;
-    }
-
-
-
-    public function setSolved($solved)
-    {
-        $this->solved = (bool)$solved;
     }
 
 

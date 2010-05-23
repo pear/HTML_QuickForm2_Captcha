@@ -26,8 +26,6 @@ require_once 'HTML/QuickForm2/Element/Captcha/Session.php';
  * - Once a captcha in a form is solved, it stays that way until
  *   the form is valid. No need to re-solve a captcha because you
  *   forgot a required field!
- * - Stable captcha: Question stays the same if you do not solve it
- *   correctly the first time
  * - Customizable status messages i.e. when captcha is solved
  *
  * When the form is valid and accepted, use clearCaptchaSession()
@@ -41,7 +39,6 @@ require_once 'HTML/QuickForm2/Element/Captcha/Session.php';
  * @link     http://pear.php.net/package/HTML_QuickForm2
  *
  * @FIXME/@TODO
- * - session storage adapter?
  * - clear session when form is valid / destroy captcha
  */
 abstract class HTML_QuickForm2_Element_Captcha
@@ -122,7 +119,7 @@ abstract class HTML_QuickForm2_Element_Captcha
      */
     protected function generateCaptcha()
     {
-        $this->getSession()->init();
+        $this->getSession()->init($this->getSessionVarName());
         $this->capGenerated = true;
 
         if ($this->getSession()->hasData()) {
@@ -169,9 +166,7 @@ abstract class HTML_QuickForm2_Element_Captcha
     public function getSession()
     {
         if ($this->session === null) {
-            $this->session = new HTML_QuickForm2_Element_Captcha_Session(
-                $this->getSessionVarName()
-            );
+            $this->session = new HTML_QuickForm2_Element_Captcha_Session();
         }
         return $this->session;
     }

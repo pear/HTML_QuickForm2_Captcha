@@ -15,15 +15,11 @@
 require_once 'HTML/QuickForm2/Element/InputText.php';
 
 /**
- * Captcha element or QuickForm2:
+ * Base class for captcha elements for QuickForm2:
  * Completely Automated Public Turing test to tell Computers and Humans Apart.
  * Used as anti-spam measure.
  *
  * Features:
- * - Support for different CAPTCHA types:
- *   - numeric captchas (solve mathematical equations)
- *   - ReCAPTCHA (online service to scan books)
- *   - Figlet (ASCII art)
  * - Multiple forms on the same page may have captcha elements
  *   with the same name
  * - Once a captcha in a form is solved, it stays that way until
@@ -35,7 +31,7 @@ require_once 'HTML/QuickForm2/Element/InputText.php';
  *
  * When the form is valid and accepted, use clearCaptchaSession()
  * to destroy the captcha question and answer. Otherwise the
- * form catpcha is seend as already solved for the user.
+ * form catpcha is seen as already solved for the user.
  *
  * @category HTML
  * @package  HTML_QuickForm2
@@ -45,8 +41,6 @@ require_once 'HTML/QuickForm2/Element/InputText.php';
  *
  * @FIXME/@TODO
  * - session storage adapter?
- * - support for recaptcha, normal captcha, figlet
- * - frozen HTML
  * - clear session when form is valid / destroy captcha
  */
 abstract class HTML_QuickForm2_Element_Captcha
@@ -66,22 +60,6 @@ abstract class HTML_QuickForm2_Element_Captcha
      * @var string
      */
     protected $sessionPrefix = '_qf2_captcha_';
-
-    /**
-     * Captcha question. Automatically stored in session
-     * to make sure the user gets the same captcha every time.
-     *
-     * @var string
-     */
-    protected $capQuestion = null;
-
-    /**
-     * Answer to the captcha question.
-     * The user must input this value.
-     *
-     * @var string
-     */
-    protected $capAnswer = null;
 
     /**
      * If the captcha has been solved yet.
@@ -131,10 +109,12 @@ abstract class HTML_QuickForm2_Element_Captcha
 
 
     /**
-     * Generates the captcha question and answer and prepares the
-     * session data.
+     * Prepares the session data for the captcha.
+     * Child classes overwrite this method do do further intialization,
+     * i.e. generating questions and answers.
      *
-     * @return void
+     * @return boolean True when the captcha has been created newly, false
+     *                 if it already existed.
      *
      * @throws HTML_QuickForm2_Exception When the session is not started yet
      */
@@ -152,37 +132,18 @@ abstract class HTML_QuickForm2_Element_Captcha
         $varname = $this->getSessionVarName();
         if (isset($_SESSION[$varname])) {
             //data exist already, use them
-            $this->capQuestion
-                = $_SESSION[$varname]['question'];
-            $this->capAnswer
-                = $_SESSION[$varname]['answer'];
             $this->capSolved
                 = $_SESSION[$varname]['solved'];
-             return;
+             return false;
         }
-
-        list(
-            $this->capQuestion,
-            $this->capAnswer
-        ) = $this->generateCaptchaQA();
 
         $this->capSolved   = false;
         $_SESSION[$varname] = array(
-            'question' => $this->capQuestion,
-            'answer'   => $this->capAnswer,
             'solved'   => $this->capSolved
         );
+
+        return true;
     }
-
-
-
-    /**
-     * Returns an array with captcha question and captcha answer
-     *
-     * @return array Array with first value the captcha question
-     *               and the second one the captcha answer.
-     */
-    abstract protected function generateCaptchaQA();
 
 
 
@@ -212,18 +173,11 @@ abstract class HTML_QuickForm2_Element_Captcha
 
     /**
      * Checks if the captcha is solved now.
-     * Uses $capSolved variable or user input, which is compared
-     * with the pre-set correct answer in $capAnswer.
+     * Checks the session.
      *
      * Calls generateCaptcha() if it has not been called before.
      *
-     * In case user solution and answer match, a session variable
-     * is set so that the captcha is seen as completed across
-     * form submissions.
-     *
      * @uses $capSolved
-     * @uses $capAnswer
-     * @uses $capGenerated
      * @uses generateCaptcha()
      *
      * @return boolean True if the captcha is solved
@@ -238,16 +192,7 @@ abstract class HTML_QuickForm2_Element_Captcha
             return true;
         }
 
-        $userSolution = $this->getValue();
-        if ($this->capAnswer === null) {
-            //no captcha answer?
-            return false;
-        } else if ($this->capAnswer != $userSolution) {
-            return false;
-        } else {
-            $_SESSION[$this->getSessionVarName()]['solved'] = true;
-            return true;
-        }
+        return false;
     }
 
 
@@ -336,7 +281,6 @@ abstract class HTML_QuickForm2_Element_Captcha
      * Renders the captcha into a HTML string
      *
      * @see getCaptchaHtml()
-     * @see $data['captchaRender']
      * @see $data['captchaSolved']
      *
      * @return string HTML
@@ -344,18 +288,12 @@ abstract class HTML_QuickForm2_Element_Captcha
     public function __toString()
     {
         if ($this->frozen) {
-            //FIXME
-            return 'captcha!';
+            return $this->getFrozenHtml();
         } else {
             if ($this->verifyCaptcha()) {
                 return $this->data['captchaSolved'];
             } else {
-                $prefix = '';
-                if ($this->data['captchaRender']) {
-                    $prefix = $this->getCaptchaHtml();
-                }
-                return $prefix
-                    . '<input' . $this->getAttributes(true) . ' />';
+                return $this->getCaptchaHtml();
             }
         }
     }
@@ -363,24 +301,26 @@ abstract class HTML_QuickForm2_Element_Captcha
 
 
     /**
-     * Returns the HTML for the captcha itself (question).
-     * Used in __toString() and to be used when $data['captchaRender']
-     * is set to false.
+     * Returns the HTML for the captcha
+     * (question + input element if applicable)
      *
      * Uses $data['captchaHtmlAttributes'].
      *
      * @return string HTML code
      */
-    public function getCaptchaHtml()
-    {
-        return '<div'
-            . self::getAttributesString(
-                $this->data['captchaHtmlAttributes']
-            ) . '>'
-            . $this->capQuestion
-            . '</div>';
-    }
+    abstract public function getCaptchaHtml();
 
+
+
+    /**
+     * Returns the HTML code when the form is frozen.
+     *
+     * @return string HTML code
+     */
+    public function getFrozenHtml()
+    {
+        return '';
+    }
 }
 
 ?>

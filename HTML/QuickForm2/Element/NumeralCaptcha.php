@@ -32,20 +32,117 @@ require_once 'HTML/QuickForm2/Element/Captcha.php';
 class HTML_QuickForm2_Element_NumeralCaptcha
     extends HTML_QuickForm2_Element_Captcha
 {
+
     /**
-     * Returns an array with captcha question and captcha answer
+     * Captcha question. Automatically stored in session
+     * to make sure the user gets the same captcha every time.
      *
-     * @return array Array with first value the captcha question
-     *               and the second one the captcha answer.
+     * @var string
      */
-    protected function generateCaptchaQA()
+    protected $capQuestion = null;
+
+    /**
+     * Answer to the captcha question.
+     * The user must input this value.
+     *
+     * @var string
+     */
+    protected $capAnswer = null;
+
+
+
+    /**
+     * Generates the captcha question and answer and prepares the
+     * session data.
+     *
+     * @return boolean True when the captcha has been created newly, false
+     *                 if it already existed.
+     *
+     * @throws HTML_QuickForm2_Exception When the session is not started yet
+     */
+    protected function generateCaptcha()
     {
+        $varname = $this->getSessionVarName();
+        if (!parent::generateCaptcha()) {
+            $this->capQuestion = $_SESSION[$varname]['question'];
+            $this->capAnswer   = $_SESSION[$varname]['answer'];
+            return false;
+        }
+
         $cn = new Text_CAPTCHA_Numeral();
-        return array(
-            $cn->getOperation(),
-            $cn->getAnswer()
-        );
+        $this->capQuestion = $cn->getOperation();
+        $this->capAnswer   = $cn->getAnswer();
+        $_SESSION[$varname]['question'] = $this->capQuestion;
+        $_SESSION[$varname]['answer']   = $this->capAnswer;
+        return true;
     }
+
+
+
+    /**
+     * Checks if the captcha is solved now.
+     * Uses $capSolved variable or user input, which is compared
+     * with the pre-set correct answer in $capAnswer.
+     *
+     * Calls generateCaptcha() if it has not been called before.
+     *
+     * In case user solution and answer match, a session variable
+     * is set so that the captcha is seen as completed across
+     * form submissions.
+     *
+     * @uses $capAnswer
+     * @uses $capGenerated
+     * @uses generateCaptcha()
+     *
+     * @return boolean True if the captcha is solved
+     */
+    protected function verifyCaptcha()
+    {
+        //check session and generate captcha if necessary
+        if (parent::verifyCaptcha()) {
+            return true;
+        }
+
+        //verify given answer with our answer
+        $userSolution = $this->getValue();
+        if ($this->capAnswer === null) {
+            //no captcha answer?
+            return false;
+        } else if ($this->capAnswer != $userSolution) {
+            return false;
+        } else {
+            $_SESSION[$this->getSessionVarName()]['solved'] = true;
+            return true;
+        }
+    }
+
+
+
+    /**
+     * Returns the HTML for the captcha question and answer.
+     *
+     * Used in __toString() and to be used when $data['captchaRender']
+     * is set to false.
+     *
+     * Uses $data['captchaHtmlAttributes'].
+     *
+     * @return string HTML code
+     */
+    public function getCaptchaHtml()
+    {
+        $prefix = '';
+        if ($this->data['captchaRender']) {
+            $prefix = '<div'
+                . self::getAttributesString(
+                    $this->data['captchaHtmlAttributes']
+                ) . '>'
+                . $this->capQuestion
+                . '</div>';
+        }
+        return $prefix
+            . '<input' . $this->getAttributes(true) . ' />';
+    }
+
 }
 
 

@@ -63,50 +63,21 @@ $form->addElement(
 
 if ($form->validate()) {
     echo '<h3>valid</h3>';
+    //clear the session, otherwise the user can re-submit the form
+    // again and again
+    foreach ($form->getElements() as $element) {
+        if ($element instanceof HTML_QuickForm2_Element_Captcha) {
+            $element->clearCaptchaSession();
+        }
+    }
 } else {
     echo '<h3>INvalid</h3>';
+    $renderer = HTML_QuickForm2_Renderer::factory('default');
+    echo $form->render($renderer);
 }
 echo '<pre>Data: ';
 var_dump($form->getValue());
 echo '</pre>';
-
-$renderer = HTML_QuickForm2_Renderer::factory('default');
-echo $form->render($renderer);
-
-
-
-
-//----------------------
-$form = new HTML_QuickForm2(
-    'captcha2', 'post',
-    array(),
-    true
-);
-
-$form->addElement(
-    'numeralcaptcha', 'captchaelem',
-    array(
-        'id'   => 'captchavalue',
-    )
-);
-
-$form->addElement(
-    'submit', 'submitted',
-    array('id' => 'submit', 'value' => 'Try it on form 2')
-);
-
-if ($form->validate()) {
-    echo '<h3>valid</h3>';
-} else {
-    echo '<h3>INvalid</h3>';
-}
-echo '<pre>Data: ';
-var_dump($form->getValue());
-echo '</pre>';
-
-$renderer = HTML_QuickForm2_Renderer::factory('default');
-echo $form->render($renderer);
-
 
 
 ?>

@@ -73,6 +73,19 @@ $captcha = $form->addElement(
 )->setLabel('Anti-Spam question');
 
 
+//the following lines are optional. We use them to make the captcha
+// a bit harder. remove the comments around them to see them in action
+/*
+$num = new Text_CAPTCHA_Numeral(
+    //mathematical operations: + - *
+    Text_CAPTCHA_Numeral::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_HIGH_SCHOOL,
+    //use numbers from 10 to 20
+    10, 20
+);
+$captcha->setNumeral($num);
+*/
+
+
 //submit button
 $form->addElement(
     'submit', 'submitted',

@@ -63,6 +63,21 @@ class HTML_QuickForm2_Element_NumeralCaptcha
 
 
     /**
+     * Sets the Text_CAPTCHA_Numeral object.
+     * Useful for changing options.
+     *
+     * @param Text_CAPTCHA_Numeral $numeral New numeral captcha object
+     *
+     * @return void
+     */
+    public function setNumeral(Text_CAPTCHA_Numeral $numeral)
+    {
+        $this->numeral = $numeral;
+    }
+
+
+
+    /**
      * Generates the captcha question and answer and prepares the
      * session data.
      *

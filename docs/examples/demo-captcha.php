@@ -15,11 +15,10 @@ div.element.error input {
  <body>
 <?php
 set_include_path(
-    '../'
+    '../../'
     . ':' . get_include_path()
 );
 require_once 'HTML/QuickForm2.php';
-require_once 'HTML/QuickForm2/Renderer.php';
 require_once 'HTML/QuickForm2/Element/NumeralCaptcha.php';
 require_once 'HTML/QuickForm2/Element/ReCaptcha.php';
 
@@ -72,8 +71,7 @@ if ($form->validate()) {
     }
 } else {
     echo '<h3>INvalid</h3>';
-    $renderer = HTML_QuickForm2_Renderer::factory('default');
-    echo $form->render($renderer);
+    echo $form;
 }
 echo '<pre>Data: ';
 var_dump($form->getValue());

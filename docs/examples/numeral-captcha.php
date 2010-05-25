@@ -28,7 +28,7 @@ div.element.error input {
 <?php
 //you do not need this. for development purposes only
 set_include_path(
-    '../'
+    '../../'
     . ':' . get_include_path()
 );
 

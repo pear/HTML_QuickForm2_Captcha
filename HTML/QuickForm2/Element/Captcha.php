@@ -1,15 +1,15 @@
 <?php
 /**
- * HTML_QuickForm2 package.
+ * HTML_QuickForm2_Captcha package.
  *
  * PHP version 5
  *
  * @category HTML
- * @package  HTML_QuickForm2
+ * @package  HTML_QuickForm2_Captcha
  * @author   Christian Weiske <cweiske@php.net>
- * @license  http://opensource.org/licenses/bsd-license.php New BSD License
+ * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
  * @version  SVN: $Id: InputText.php 294057 2010-01-26 21:10:28Z avb $
- * @link     http://pear.php.net/package/HTML_QuickForm2
+ * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  */
 
 require_once 'HTML/QuickForm2/Element/InputText.php';
@@ -33,10 +33,10 @@ require_once 'HTML/QuickForm2/Element/Captcha/Session.php';
  * form catpcha is seen as already solved for the user.
  *
  * @category HTML
- * @package  HTML_QuickForm2
+ * @package  HTML_QuickForm2_Captcha
  * @author   Christian Weiske <cweiske@php.net>
- * @license  http://opensource.org/licenses/bsd-license.php New BSD License
- * @link     http://pear.php.net/package/HTML_QuickForm2
+ * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
+ * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  *
  * @FIXME/@TODO
  * - clear session when form is valid / destroy captcha

@@ -291,7 +291,10 @@ abstract class HTML_QuickForm2_Element_Captcha
 
 
     /**
-     * Renders the captcha into a HTML string
+     * Renders the captcha into a HTML string.
+     *
+     * Catches all thrown exceptions since __toString()
+     * may not throw any.
      *
      * @see getCaptchaHtml()
      * @see $data['captchaSolved']
@@ -300,14 +303,18 @@ abstract class HTML_QuickForm2_Element_Captcha
      */
     public function __toString()
     {
-        if ($this->frozen) {
-            return $this->getFrozenHtml();
-        } else {
-            if ($this->verifyCaptcha()) {
-                return $this->data['captchaSolved'];
+        try {
+            if ($this->frozen) {
+                return $this->getFrozenHtml();
             } else {
-                return $this->getCaptchaHtml();
+                if ($this->verifyCaptcha()) {
+                    return $this->data['captchaSolved'];
+                } else {
+                    return $this->getCaptchaHtml();
+                }
             }
+        } catch (Exception $e) {
+            return 'Error: ' . $e->getMessage();
         }
     }
 

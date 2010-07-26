@@ -145,8 +145,12 @@ class HTML_QuickForm2_Element_NumeralCaptcha
      *
      * Used in __toString() and to be used when $data['captchaRender']
      * is set to false.
+     * It is not called when the element is frozen, see getFrozenHtml()
+     * for that case.
+     * This method is also not called when the captcha has been solved,
+     * since $data['captchaSolved'] is shown then.
      *
-     * Uses $data['captchaHtmlAttributes'].
+     * @uses $data['captchaHtmlAttributes'].
      *
      * @return string HTML code
      */

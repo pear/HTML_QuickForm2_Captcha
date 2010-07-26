@@ -86,7 +86,8 @@ abstract class HTML_QuickForm2_Element_Captcha
      *                          solution entered by the user is wrong
      * - captchaRender        - Boolean to determine if the captcha itself
      *                          is to be rendered with the solution
-     *                          input element
+     *                          input element (true), or the input element
+     *                          alone
      *
      * @param string $name       Element name
      * @param mixed  $attributes Attributes (either a string or an array)
@@ -293,11 +294,13 @@ abstract class HTML_QuickForm2_Element_Captcha
     /**
      * Renders the captcha into a HTML string.
      *
-     * Catches all thrown exceptions since __toString()
-     * may not throw any.
+     * Catches all thrown exceptions - since __toString()
+     * may not throw any - and returns them as error message
+     * string.
      *
-     * @see getCaptchaHtml()
-     * @see $data['captchaSolved']
+     * @uses getCaptchaHtml()
+     * @uses getFrozenHtml()
+     * @see  $data['captchaSolved']
      *
      * @return string HTML
      */
@@ -324,7 +327,15 @@ abstract class HTML_QuickForm2_Element_Captcha
      * Returns the HTML for the captcha
      * (question + input element if applicable)
      *
-     * Uses $data['captchaHtmlAttributes'].
+     * Used in __toString() and to be used when $data['captchaRender']
+     * is set to false.
+     * It is not called when the element is frozen, see getFrozenHtml()
+     * for that case.
+     * This method is also not called when the captcha has been solved,
+     * since $data['captchaSolved'] is shown then.
+     *
+     * @uses   $data['captchaHtmlAttributes'].
+     * @usedby __toString()
      *
      * @return string HTML code
      */

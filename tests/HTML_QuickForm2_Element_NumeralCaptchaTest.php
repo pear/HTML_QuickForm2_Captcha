@@ -64,7 +64,11 @@ class HTML_QuickForm2_Element_NumeralCaptchaTest extends PHPUnit_Framework_TestC
      */
     public function testGetCaptchaHtml()
     {
-        $str = (string)$this->nc;
+        //we cannot test getCaptchaHtml() alone because
+        // verifyCaptcha() is not called there.
+        // Using __toString() is the only way.
+        (string)$this->nc;
+        $str = (string)$this->nc->getCaptchaHtml();
         $xml = '<?xml version="1.0" encoding="utf-8"?>'
             . "\n<test>\n"
             . $str
@@ -72,6 +76,14 @@ class HTML_QuickForm2_Element_NumeralCaptchaTest extends PHPUnit_Framework_TestC
 
         //this is a cheap way to see if the xml is well-formed
         $this->assertTag(array('test'), $xml, '', false);
+    }
+
+    /**
+     * Tests if __toString() renders the captcha question
+     * and input element in the normal case (form not filled yet)
+     */
+    public function test__toStringNormal()
+    {
     }
 }
 ?>

@@ -169,6 +169,21 @@ class HTML_QuickForm2_Element_NumeralCaptcha
             . '<input' . $this->getAttributes(true) . ' />';
     }
 
+
+
+    /**
+     * Returns the HTML code when the form is frozen.
+     *
+     * @return string HTML code
+     */
+    public function getFrozenHtml()
+    {
+        if (!$this->data['captchaRender']) {
+            return '';
+        }
+
+        return $this->getSession()->question;
+    }
 }
 
 

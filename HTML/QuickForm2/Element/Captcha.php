@@ -307,15 +307,16 @@ abstract class HTML_QuickForm2_Element_Captcha
     public function __toString()
     {
         try {
+            if ($this->verifyCaptcha()) {
+                return $this->data['captchaSolved'];
+            }
+
             if ($this->frozen) {
                 return $this->getFrozenHtml();
             } else {
-                if ($this->verifyCaptcha()) {
-                    return $this->data['captchaSolved'];
-                } else {
-                    return $this->getCaptchaHtml();
-                }
+                return $this->getCaptchaHtml();
             }
+
         } catch (Exception $e) {
             return 'Error: ' . $e->getMessage();
         }

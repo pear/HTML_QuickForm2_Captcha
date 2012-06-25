@@ -8,9 +8,8 @@ declare(encoding = 'UTF-8');
  *
  * @category HTML
  * @package  HTML_QuickForm2_Captcha
- * @author   Christian Weiske <cweiske@php.net>
+ * @author   Rico Sonntage <mail@ricosonntag.de>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
- * @version  SVN: $Id: InputText.php 294057 2010-01-26 21:10:28Z avb $
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  */
 
@@ -30,7 +29,7 @@ require_once 'HTML/QuickForm2/Element/Captcha.php';
  *
  * @category HTML
  * @package  HTML_QuickForm2_Captcha
- * @author   Christian Weiske <cweiske@php.net>
+ * @author   Rico Sonntage <mail@ricosonntag.de>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  * @see      http://pear.php.net/package/Text_CAPTCHA

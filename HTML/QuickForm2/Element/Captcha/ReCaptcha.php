@@ -1,4 +1,6 @@
 <?php
+declare(encoding = 'UTF-8');
+
 /**
  * HTML_QuickForm2_Captcha package.
  *
@@ -32,17 +34,58 @@ require_once 'HTML/QuickForm2/Element/Captcha.php';
  * - multiple recaptchas in one form
  * - automatically set recaptcha language option
  */
-class HTML_QuickForm2_Element_ReCaptcha
+class HTML_QuickForm2_Element_Captcha_ReCaptcha
     extends HTML_QuickForm2_Element_Captcha
 {
     /**
-     * ReCaptcha instance
+     * Constructor. Set adapter specific data attributes.
      *
-     * @var Services_ReCaptcha
+     * @param string $name       Element name
+     * @param mixed  $attributes Attributes (either a string or an array)
+     * @param array  $data       Element data (special captcha settings)
      */
-    protected $reCaptcha = null;
+    public function __construct(
+        $name = null, $attributes = null, $data = array()
+    ) {
+        parent::__construct($name, $attributes, $data);
 
+        // Set adapter specific options
+        $this->init($data);
+    }
 
+    /**
+     * Get the Services_ReCaptcha instance.
+     * May be used to configure the ReCaptcha settings.
+     *
+     * @param array $data Element data (special captcha settings)
+     *
+     * @return Services_ReCaptcha ReCaptcha instance
+     */
+    public function init(array $data = array())
+    {
+        if ($this->adapter !== null) {
+            return $this->adapter;
+        }
+
+        if (!isset($data['public-key'])) {
+            // No public key set
+            throw new HTML_QuickForm2_Exception(
+                'Captcha element requires "public-key" data to be set'
+            );
+        }
+
+        if (!isset($data['private-key'])) {
+            // No private key set
+            throw new HTML_QuickForm2_Exception(
+                'Captcha element requires "private-key" data to be set'
+            );
+        }
+
+        $this->adapter = new Services_ReCaptcha(
+            $data['public-key'],
+            $data['private-key']
+        );
+    }
 
     /**
      * Checks if the captcha is solved now.
@@ -59,10 +102,11 @@ class HTML_QuickForm2_Element_ReCaptcha
         //recaptcha_response_field
         //recaptcha_challenge_field
 
-        //Services_ReCaptcha::validate() may only be called if
+        // Services_ReCaptcha::validate() may only be called if
         // the form has been submitted. Otherwise we get nasty
         // errors.
         $isSubmitted = false;
+
         foreach ($this->getContainer()->getDataSources() as $ds) {
             if ($ds instanceof HTML_QuickForm2_DataSource_Submit) {
                 $isSubmitted = true;
@@ -73,7 +117,7 @@ class HTML_QuickForm2_Element_ReCaptcha
             return false;
         }
 
-        if ($this->getReCaptcha()->validate()) {
+        if ($this->adapter->validate()) {
             $this->getSession()->solved = true;
             return true;
         }
@@ -81,62 +125,13 @@ class HTML_QuickForm2_Element_ReCaptcha
         return false;
     }
 
-
-
     /**
      * Returns the HTML containing the ReCaptcha element.
-     *
-     * Used in __toString() and to be used when $data['captchaRender']
-     * is set to false.
-     * It is not called when the element is frozen, see getFrozenHtml()
-     * for that case.
-     * This method is also not called when the captcha has been solved,
-     * since $data['captchaSolved'] is shown then.
-     *
-     * @usedby __toString()
      *
      * @return string HTML code
      */
     public function getCaptchaHtml()
     {
-        return (string)$this->getReCaptcha();
+        return (string) $this->adapter;
     }
-
-
-
-    /**
-     * Returns the Services_ReCaptcha instance.
-     * May be used to configure the ReCaptcha settings.
-     *
-     * @return Services_ReCaptcha ReCaptcha instance
-     */
-    public function getReCaptcha()
-    {
-        if ($this->reCaptcha !== null) {
-            return $this->reCaptcha;
-        }
-
-        if (!isset($this->data['public-key'])) {
-            //no public key set
-            throw new HTML_QuickForm2_Exception(
-                'Captcha element requires "public-key" data to be set'
-            );
-        }
-        if (!isset($this->data['private-key'])) {
-            //no private key set
-            throw new HTML_QuickForm2_Exception(
-                'Captcha element requires "private-key" data to be set'
-            );
-        }
-
-        $this->reCaptcha = new Services_ReCaptcha(
-            $this->data['public-key'],
-            $this->data['private-key']
-        );
-        return $this->reCaptcha;
-    }
-
 }
-
-
-?>

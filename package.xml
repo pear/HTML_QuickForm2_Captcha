@@ -1,122 +1,116 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<package version="2.0"
- xmlns="http://pear.php.net/dtd/package-2.0"
- xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-  http://pear.php.net/dtd/tasks-1.0.xsd
-  http://pear.php.net/dtd/package-2.0
-  http://pear.php.net/dtd/package-2.0.xsd">
- <name>HTML_QuickForm2_Captcha</name>
- <channel>pear.php.net</channel>
- <summary>Captcha package for QuickForm2</summary>
- <description>
-  Provides anti-spam measures for forms built with QuickForm2
-  by adding a security question that hopefully only humans
-  can answer.
-
-  Available plugins:
-  - ReCaptcha.net
-  - Mathematical questions (numeral captcha)
- </description>
-
- <lead>
-  <name>Christian Weiske</name>
-  <user>cweiske</user>
-  <email>cweiske@php.net</email>
-  <active>yes</active>
- </lead>
-
- <date>2010-05-25</date>
-
- <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
- </version>
-
- <stability>
-  <release>alpha</release>
-  <api>alpha</api>
- </stability>
-
- <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
-
- <notes>
-  - First public version
- </notes>
-
- <contents>
-  <dir name="/">
-   <dir name="HTML">
-    <dir name="QuickForm2">
-     <dir name="Element">
-      <file role="php" name="Captcha.php" />
-      <file role="php" name="NumeralCaptcha.php" />
-      <file role="php" name="ReCaptcha.php" />
-      <dir name="Captcha">
-       <file role="php" name="Session.php" />
-      </dir>
-     </dir>
-    </dir>
-   </dir>
-   <dir name="docs">
-    <dir name="examples">
-     <file role="doc" name="demo-captcha.php" />
-     <file role="doc" name="numeral-captcha.php" />
-    </dir>
-   </dir>
-  </dir>
- </contents>
-
- <dependencies>
-  <required>
-   <php>
-    <min>5.2.0</min>
-   </php>
-   <pearinstaller>
-    <min>1.6.1</min>
-   </pearinstaller>
-
-   <package>
-    <name>HTML_QuickForm2</name>
+<package version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0   http://pear.php.net/dtd/tasks-1.0.xsd   http://pear.php.net/dtd/package-2.0   http://pear.php.net/dtd/package-2.0.xsd" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <name>HTML_QuickForm2_Captcha</name>
     <channel>pear.php.net</channel>
-    <min>0.4.0</min>
-   </package>
-  </required>
-
-  <optional>
-   <package>
-    <name>Services_ReCaptcha</name>
-    <channel>pear.php.net</channel>
-    <min>1.0.1</min>
-   </package>
-   <package>
-    <name>Text_CAPTCHA_Numeral</name>
-    <channel>pear.php.net</channel>
-    <min>1.3.0</min>
-   </package>
-  </optional>
- </dependencies>
-
- <phprelease />
-
- <changelog>
-
-  <release>
-   <version>
-    <release>0.0.1</release>
-    <api>0.0.1</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2010-05-25</date>
-   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
-   <notes>
-    First public version
-   </notes>
-  </release>
-
- </changelog>
+    <summary>Captcha package for QuickForm2</summary>
+    <description>
+        Provides anti-spam measures for forms built with QuickForm2 by adding a security question that hopefully only humans can answer. Available plugins:
+        - ReCaptcha.net
+        - Mathematical questions (numeral captcha)
+    </description>
+    <lead>
+        <name>Christian Weiske</name>
+        <user>cweiske</user>
+        <email>cweiske@php.net</email>
+        <active>yes</active>
+    </lead>
+    <date>2012-06-25</date>
+    <version>
+        <release>0.1.0</release>
+        <api>0.1.0</api>
+    </version>
+    <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+    </stability>
+    <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+    <notes>- First public version</notes>
+    <contents>
+        <dir name="/">
+            <dir name="HTML">
+                <dir name="QuickForm2">
+                <dir name="Element">
+                    <file role="php" name="Captcha.php"/>
+                    <dir name="Captcha">
+                        <file role="php" name="Equation.php"/>
+                        <file role="php" name="Figlet.php"/>
+                        <file role="php" name="Image.php"/>
+                        <file role="php" name="Numeral.php"/>
+                        <file role="php" name="ReCaptcha.php"/>
+                        <file role="php" name="Session.php"/>
+                        <file role="php" name="Word.php"/>
+                    </dir>
+                </dir>
+                </dir>
+            </dir>
+            <dir name="docs">
+                <dir name="examples">
+<!--                    <file role="doc" name="demo-captcha.php"/>-->
+<!--                    <file role="doc" name="numeral-captcha.php"/>-->
+                </dir>
+            </dir>
+        </dir>
+    </contents>
+    <dependencies>
+        <required>
+            <php>
+                <min>5.2.0</min>
+            </php>
+            <pearinstaller>
+                <min>1.6.1</min>
+            </pearinstaller>
+            <package>
+            <name>HTML_QuickForm2</name>
+                <channel>pear.php.net</channel>
+                <min>0.4.0</min>
+            </package>
+        </required>
+        <optional>
+            <package>
+                <name>Services_ReCaptcha</name>
+                <channel>pear.php.net</channel>
+                <min>1.0.3</min>
+            </package>
+            <package>
+                <name>Numbers_Words</name>
+                <channel>pear.php.net</channel>
+                <min>0.16.4</min>
+            </package>
+            <package>
+                <name>Image_Text</name>
+                <channel>pear.php.net</channel>
+                <min>0.6.1</min>
+            </package>
+            <package>
+                <name>Text_Figlet</name>
+                <channel>pear.php.net</channel>
+                <min>1.0.2</min>
+            </package>
+            <package>
+                <name>Text_Password</name>
+                <channel>pear.php.net</channel>
+                <min>1.1.1</min>
+            </package>
+            <package>
+                <name>Text_CAPTCHA</name>
+                <channel>pear.php.net</channel>
+                <min>0.4.3</min>
+            </package>
+        </optional>
+    </dependencies>
+    <phprelease/>
+    <changelog>
+        <release>
+            <version>
+                <release>0.1.0</release>
+                <api>0.1.0</api>
+            </version>
+            <stability>
+                <release>alpha</release>
+                <api>alpha</api>
+            </stability>
+            <date>2012-06-25</date>
+            <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+            <notes>First public version</notes>
+        </release>
+    </changelog>
 </package>

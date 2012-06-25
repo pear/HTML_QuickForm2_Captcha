@@ -1,4 +1,6 @@
 <?php
+declare(encoding = 'UTF-8');
+
 /**
  * HTML_QuickForm2_Captcha package.
  *
@@ -8,7 +10,6 @@
  * @package  HTML_QuickForm2_Captcha
  * @author   Christian Weiske <cweiske@php.net>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
- * @version  SVN: $Id: InputText.php 294057 2010-01-26 21:10:28Z avb $
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  */
 
@@ -44,6 +45,12 @@ require_once 'HTML/QuickForm2/Element/Captcha/Session.php';
 abstract class HTML_QuickForm2_Element_Captcha
     extends HTML_QuickForm2_Element_Input
 {
+    /**
+     * Underlying captcha adapter.
+     *
+     * @var object
+     */
+    protected $adapter = null;
 
     /**
      * Prefix for session variable used to store captcha
@@ -74,8 +81,6 @@ abstract class HTML_QuickForm2_Element_Captcha
      */
     protected $session = null;
 
-
-
     /**
      * Create new instance.
      *
@@ -86,14 +91,13 @@ abstract class HTML_QuickForm2_Element_Captcha
      *                          solution entered by the user is wrong
      * - captchaRender        - Boolean to determine if the captcha itself
      *                          is to be rendered with the solution
-     *                          input element (true), or the input element
-     *                          alone
+     *                          input element
      *
      * @param string $name       Element name
      * @param mixed  $attributes Attributes (either a string or an array)
      * @param array  $data       Element data (special captcha settings)
      */
-    public function __construct($name = null, $attributes = null, $data = null)
+    public function __construct($name = null, $attributes = null, $data = array())
     {
         //we fill the class data array before it gets merged with $data
         $this->data['captchaSolutionWrong']  = 'Captcha solution is wrong';
@@ -105,8 +109,6 @@ abstract class HTML_QuickForm2_Element_Captcha
 
         parent::__construct($name, $attributes, $data);
     }
-
-
 
     /**
      * Prepares the session data for the captcha.
@@ -133,8 +135,6 @@ abstract class HTML_QuickForm2_Element_Captcha
         return true;
     }
 
-
-
     /**
      * Returns the name to use for the session variable.
      * We include the element's ID to make sure we can use several
@@ -148,6 +148,7 @@ abstract class HTML_QuickForm2_Element_Captcha
     {
         $el     = $this;
         $idpath = '';
+
         do {
             $idpath .= '-' . $el->getId();
         } while ($el = $el->getContainer());
@@ -156,8 +157,6 @@ abstract class HTML_QuickForm2_Element_Captcha
             . $idpath
             . '-data';
     }
-
-
 
     /**
      * Returns the captcha session object
@@ -169,10 +168,9 @@ abstract class HTML_QuickForm2_Element_Captcha
         if ($this->session === null) {
             $this->session = new HTML_QuickForm2_Element_Captcha_Session();
         }
+
         return $this->session;
     }
-
-
 
     /**
      * Sets a new session object.
@@ -186,8 +184,6 @@ abstract class HTML_QuickForm2_Element_Captcha
     {
         $this->session = $session;
     }
-
-
 
     /**
      * Checks if the captcha is solved now.
@@ -212,8 +208,6 @@ abstract class HTML_QuickForm2_Element_Captcha
         return false;
     }
 
-
-
     /**
      * Destroys all captcha session data, so that the previously solved
      * captcha re-appears as unsolved. Question and answers are discarded
@@ -226,8 +220,6 @@ abstract class HTML_QuickForm2_Element_Captcha
         $this->getSession()->clear();
     }
 
-
-
     /**
      * Performs the server-side validation.
      * Checks captcha validation first, continues with
@@ -237,17 +229,14 @@ abstract class HTML_QuickForm2_Element_Captcha
      */
     protected function validate()
     {
-        //alternative: use custom rule to get error messages
+        // Alternative: use custom rule to get error messages
         if (!$this->verifyCaptcha()) {
-            $this->setError(
-                $this->data['captchaSolutionWrong']
-            );
+            $this->setError($this->data['captchaSolutionWrong']);
             return false;
         }
+
         return parent::validate();
     }
-
-
 
     /**
      * Returns the CAPTCHA type.
@@ -258,8 +247,6 @@ abstract class HTML_QuickForm2_Element_Captcha
     {
         return 'captcha';
     }
-
-
 
     /**
      * Sets the input value
@@ -274,8 +261,6 @@ abstract class HTML_QuickForm2_Element_Captcha
         return $this;
     }
 
-
-
     /**
      * Returns the captcha answer input element value.
      * No value (null) when the element is disabled.
@@ -289,60 +274,36 @@ abstract class HTML_QuickForm2_Element_Captcha
             : $this->getAttribute('value');
     }
 
-
-
     /**
-     * Renders the captcha into a HTML string.
+     * Renders the captcha into a HTML string
      *
-     * Catches all thrown exceptions - since __toString()
-     * may not throw any - and returns them as error message
-     * string.
-     *
-     * @uses getCaptchaHtml()
-     * @uses getFrozenHtml()
-     * @see  $data['captchaSolved']
+     * @see getCaptchaHtml()
+     * @see $data['captchaSolved']
      *
      * @return string HTML
      */
     public function __toString()
     {
-        try {
+        if ($this->frozen) {
+            return $this->getFrozenHtml();
+        } else {
             if ($this->verifyCaptcha()) {
                 return $this->data['captchaSolved'];
-            }
-
-            if ($this->frozen) {
-                return $this->getFrozenHtml();
             } else {
                 return $this->getCaptchaHtml();
             }
-
-        } catch (Exception $e) {
-            return 'Error: ' . $e->getMessage();
         }
     }
-
-
 
     /**
      * Returns the HTML for the captcha
      * (question + input element if applicable)
      *
-     * Used in __toString() and to be used when $data['captchaRender']
-     * is set to false.
-     * It is not called when the element is frozen, see getFrozenHtml()
-     * for that case.
-     * This method is also not called when the captcha has been solved,
-     * since $data['captchaSolved'] is shown then.
-     *
-     * @uses   $data['captchaHtmlAttributes'].
-     * @usedby __toString()
+     * @uses $data['captchaHtmlAttributes'].
      *
      * @return string HTML code
      */
     abstract public function getCaptchaHtml();
-
-
 
     /**
      * Returns the HTML code when the form is frozen.
@@ -354,5 +315,3 @@ abstract class HTML_QuickForm2_Element_Captcha
         return '';
     }
 }
-
-?>

@@ -135,16 +135,16 @@ class HTML_QuickForm2_Element_Captcha_Image
         $this->getSession()->question = $captchaFile;
         $this->getSession()->answer   = $this->adapter->getPhrase();
 
+        // Clean up old stuff
+        if (mt_rand(1, 10) == 1) {
+            $this->garbageCollection();
+        }
+
         // Save image to file
         file_put_contents(
             $this->imageDir . $captchaFile,
             $this->adapter->getCAPTCHA()
         );
-
-        // Clean up old stuff
-        if (mt_rand(1, 10) == 1) {
-            $this->garbageCollection();
-        }
 
         return true;
     }

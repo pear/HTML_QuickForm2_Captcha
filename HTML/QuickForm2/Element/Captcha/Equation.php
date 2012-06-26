@@ -17,11 +17,16 @@ require_once 'Text/CAPTCHA.php';
 require_once 'HTML/QuickForm2/Element/Captcha.php';
 
 /**
- * Equation Captcha element for QuickForm2.
+ * Equation captcha element for HTML_QuickForm2.
+ * Displays an mathematical equation to solve by the user.
  *
- * In case you need to customize the options, use getAdapter() and
- * modify the object.
-
+ * In case you need to customize the options, use getAdapter() method
+ * and modify that object or pass options as $data.
+ *
+ * Features:
+ * - Stable captcha: Question stays the same if you do not solve it
+ *   correctly the first time
+ *
  * @category HTML
  * @package  HTML_QuickForm2_Captcha
  * @author   Rico Sonntage <mail@ricosonntag.de>

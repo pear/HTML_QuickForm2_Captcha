@@ -17,11 +17,11 @@ require_once 'Text/CAPTCHA.php';
 require_once 'HTML/QuickForm2/Element/Captcha.php';
 
 /**
- * Numeral captcha element for QuickForm2.
+ * Numeral captcha element for HTML_QuickForm2.
  * Asks mathematical questions like "32 + 5".
  *
- * In case you need to customize the numeral options,
- * use getAdapter() and modify that object or pass options as $data.
+ * In case you need to customize the options, use getAdapter() method
+ * and modify that object or pass options as $data.
  *
  * Features:
  * - Stable captcha: Question stays the same if you do not solve it

@@ -26,15 +26,12 @@ declare(encoding = 'UTF-8');
  */
 class HTML_QuickForm2_Element_Captcha_Session
 {
-
     /**
      * Session variable name.
      *
      * @var string
      */
     protected $varname = null;
-
-
 
     /**
      * Initializes the captcha session.
@@ -61,8 +58,6 @@ class HTML_QuickForm2_Element_Captcha_Session
         }
     }
 
-
-
     /**
      * Clears the data stored in this session.
      *
@@ -75,8 +70,6 @@ class HTML_QuickForm2_Element_Captcha_Session
         }
     }
 
-
-
     /**
      * If the session already has data
      *
@@ -87,8 +80,6 @@ class HTML_QuickForm2_Element_Captcha_Session
     {
         return isset($_SESSION[$this->varname]);
     }
-
-
 
     /**
      * Returns a session variable.
@@ -102,10 +93,9 @@ class HTML_QuickForm2_Element_Captcha_Session
         if (isset($_SESSION[$this->varname][$varname])) {
             return $_SESSION[$this->varname][$varname];
         }
+
         return null;
     }
-
-
 
     /**
      * Sets the value of a session variable.
@@ -120,4 +110,3 @@ class HTML_QuickForm2_Element_Captcha_Session
         $_SESSION[$this->varname][$varname] = $value;
     }
 }
-?>

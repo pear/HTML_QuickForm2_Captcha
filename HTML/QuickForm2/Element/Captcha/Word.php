@@ -17,11 +17,16 @@ require_once 'Text/CAPTCHA.php';
 require_once 'HTML/QuickForm2/Element/Captcha.php';
 
 /**
- * Word Captcha element for QuickForm2.
+ * Word captcha element for HTML_QuickForm2.
+ * Displays some words (localizable) which the user must input as numbers.
  *
- * In case you need to customize the options, use getAdapter() and
- * modify the object.
-
+ * In case you need to customize the options, use getAdapter() method
+ * and modify that object or pass options as $data.
+ *
+ * Features:
+ * - Stable captcha: Question stays the same if you do not solve it
+ *   correctly the first time
+ *
  * @category HTML
  * @package  HTML_QuickForm2_Captcha
  * @author   Rico Sonntage <mail@ricosonntag.de>

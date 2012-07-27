@@ -3,8 +3,12 @@
     <channel>pear.php.net</channel>
     <summary>Captcha package for QuickForm2</summary>
     <description>
-        Provides anti-spam measures for forms built with QuickForm2 by adding a security question that hopefully only humans can answer. Available plugins:
+        Provides anti-spam measures for forms built with HTML_QuickForm2 by adding a security question that hopefully only humans can answer. Available plugins:
         - ReCaptcha.net
+        - Images (Captcha rendered as an image with some obfuscation)
+        - Words
+        - Figlets (Captcha rendered with an ascii art font)
+        - Mathematical equations
         - Mathematical questions (numeral captcha)
     </description>
     <lead>
@@ -103,22 +107,7 @@
         </optional>
     </dependencies>
     <phprelease/>
-    <changelog>
-        <release>
-            <version>
-                <release>0.0.1</release>
-                <api>0.0.1</api>
-            </version>
-            <stability>
-                <release>alpha</release>
-                <api>alpha</api>
-            </stability>
-            <date>2010-05-25</date>
-            <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
-            <notes>
-                First public version
-            </notes>
-        </release>    
+    <changelog>  
         <release>
             <version>
                 <release>0.0.2</release>
@@ -134,5 +123,20 @@
                 Modified class structure, Added some more captcha types
             </notes>
         </release>
+        <release>
+            <version>
+                <release>0.0.1</release>
+                <api>0.0.1</api>
+            </version>
+            <stability>
+                <release>alpha</release>
+                <api>alpha</api>
+            </stability>
+            <date>2010-05-25</date>
+            <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+            <notes>
+                First public version
+            </notes>
+        </release> 
     </changelog>
 </package>

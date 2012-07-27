@@ -50,7 +50,7 @@ class HTML_QuickForm2_Element_Captcha_Session
         $this->varname = $varname;
 
         if (session_id() == '') {
-            //Session has not been started yet. That's not acceptable
+            // Session has not been started yet. That's not acceptable
             // and breaks captcha answer storage
             throw new HTML_QuickForm2_Exception(
                 'Session must be started'

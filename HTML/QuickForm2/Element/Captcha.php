@@ -126,7 +126,7 @@ abstract class HTML_QuickForm2_Element_Captcha
         $this->capGenerated = true;
 
         if ($this->getSession()->hasData()) {
-            //data exist already, use them
+            // Data exist already, use them
             return false;
         }
 
@@ -180,8 +180,9 @@ abstract class HTML_QuickForm2_Element_Captcha
      *
      * @return void
      */
-    public function setSession(HTML_QuickForm2_Element_Captcha_Session $session)
-    {
+    public function setSession(
+        HTML_QuickForm2_Element_Captcha_Session $session
+    ) {
         $this->session = $session;
     }
 

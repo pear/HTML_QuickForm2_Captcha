@@ -100,7 +100,13 @@ class HTML_QuickForm2_Element_Captcha_Image
     protected function generateCaptcha()
     {
         if (!parent::generateCaptcha()) {
-            return false;
+            if (is_file($this->imageDir . $this->getSession()->question)) {
+                return false;
+            }
+
+            // Create a new captcha if file no longer exists
+            $this->getSession()->clear();
+            $this->getSession()->solved = false;
         }
 
         $session = $this->getSession();
@@ -147,7 +153,7 @@ class HTML_QuickForm2_Element_Captcha_Image
             return true;
         }
 
-        //verify given answer with our answer
+        // Verify given answer with our answer
         $userSolution = $this->getValue();
 
         if ($this->getSession()->answer === null) {

@@ -49,8 +49,8 @@
             </dir>
             <dir name="docs">
                 <dir name="examples">
-<!--                    <file role="doc" name="demo-captcha.php"/>-->
-<!--                    <file role="doc" name="numeral-captcha.php"/>-->
+                    <file role="doc" name="demo-captcha.php"/>
+                    <file role="doc" name="numeral-captcha.php"/>
                 </dir>
             </dir>
         </dir>

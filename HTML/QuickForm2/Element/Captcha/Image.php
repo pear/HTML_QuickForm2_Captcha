@@ -217,7 +217,8 @@ class HTML_QuickForm2_Element_Captcha_Image
                 . '<img width="' . $this->adapter->_width
                 . '" height="' . $this->adapter->_height
                 . '" alt="" src="' . $this->imageUrl
-                . $this->getSession()->question . '" />'
+                . $this->getSession()->question
+                . '?ts=' . time() . '" />'
                 . '</div>';
         }
 

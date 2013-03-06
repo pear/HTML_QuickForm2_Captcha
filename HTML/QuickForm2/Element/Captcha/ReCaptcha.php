@@ -37,6 +37,15 @@ class HTML_QuickForm2_Element_Captcha_ReCaptcha
     extends HTML_QuickForm2_Element_Captcha
 {
     /**
+     * Array of input element attributes, with some predefined values
+     *
+     * @var array
+     */
+    protected $attributes = array(
+        'size' => 5,
+    );
+
+    /**
      * Constructor. Set adapter specific data attributes.
      *
      * @param string $name       Element name

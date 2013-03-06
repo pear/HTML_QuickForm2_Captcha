@@ -1,4 +1,6 @@
 <?php
+declare(encoding = 'UTF-8');
+
 /**
  * HTML_QuickForm2_Captcha package.
  *
@@ -8,7 +10,6 @@
  * @package  HTML_QuickForm2_Captcha
  * @author   Christian Weiske <cweiske@php.net>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
- * @version  SVN: $Id: InputText.php 294057 2010-01-26 21:10:28Z avb $
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  */
 
@@ -25,15 +26,12 @@
  */
 class HTML_QuickForm2_Element_Captcha_Session
 {
-
     /**
      * Session variable name.
      *
      * @var string
      */
     protected $varname = null;
-
-
 
     /**
      * Initializes the captcha session.
@@ -52,15 +50,13 @@ class HTML_QuickForm2_Element_Captcha_Session
         $this->varname = $varname;
 
         if (session_id() == '') {
-            //Session has not been started yet. That's not acceptable
+            // Session has not been started yet. That's not acceptable
             // and breaks captcha answer storage
             throw new HTML_QuickForm2_Exception(
                 'Session must be started'
             );
         }
     }
-
-
 
     /**
      * Clears the data stored in this session.
@@ -74,8 +70,6 @@ class HTML_QuickForm2_Element_Captcha_Session
         }
     }
 
-
-
     /**
      * If the session already has data
      *
@@ -86,8 +80,6 @@ class HTML_QuickForm2_Element_Captcha_Session
     {
         return isset($_SESSION[$this->varname]);
     }
-
-
 
     /**
      * Returns a session variable.
@@ -101,10 +93,9 @@ class HTML_QuickForm2_Element_Captcha_Session
         if (isset($_SESSION[$this->varname][$varname])) {
             return $_SESSION[$this->varname][$varname];
         }
+
         return null;
     }
-
-
 
     /**
      * Sets the value of a session variable.
@@ -119,4 +110,3 @@ class HTML_QuickForm2_Element_Captcha_Session
         $_SESSION[$this->varname][$varname] = $value;
     }
 }
-?>

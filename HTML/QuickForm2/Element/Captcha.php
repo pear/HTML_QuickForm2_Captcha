@@ -93,7 +93,7 @@ abstract class HTML_QuickForm2_Element_Captcha
      * @param mixed  $attributes Attributes (either a string or an array)
      * @param array  $data       Element data (special captcha settings)
      */
-    public function __construct($name = null, $attributes = null, $data = null)
+    public function __construct($name = null, $attributes = null, $data = array())
     {
         //we fill the class data array before it gets merged with $data
         $this->data['captchaSolutionWrong']  = 'Captcha solution is wrong';

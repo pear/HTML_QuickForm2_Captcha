@@ -14,13 +14,14 @@
 require_once 'HTML/QuickForm2/Element/Captcha/TextCAPTCHA.php';
 
 /**
- * Image captcha element for QuickForm2.
- * Asks mathematical questions like "32 + 5".
+ * Image captcha element for HTML_QuickForm2.
+ * Displays an captcha rendered as image.
+ * Some obfuscation is applied to the image.
  *
  *
  * @category HTML
  * @package  HTML_QuickForm2_Captcha
- * @author   Christian Weiske <cweiske@php.net>
+ * @author   Rico Sonntag <rico.sonntag@netresearch.de>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  * @see      http://pear.php.net/package/Text_CAPTCHA

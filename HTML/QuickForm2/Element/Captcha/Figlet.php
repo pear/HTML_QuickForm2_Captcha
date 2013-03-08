@@ -6,7 +6,7 @@
  *
  * @category HTML
  * @package  HTML_QuickForm2_Captcha
- * @author   Rico Sonntag <mail@ricosonntag.de>
+ * @author   Rico Sonntag <rico.sonntag@netresearch.de>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  */
@@ -14,11 +14,12 @@
 require_once 'HTML/QuickForm2/Element/Captcha/TextCAPTCHA.php';
 
 /**
- * Figlet Captcha element for QuickForm2.
+ * Figlet captcha element for HTML_QuickForm2.
+ * Displays a word rendered with an ascii art font.
  *
  * @category HTML
  * @package  HTML_QuickForm2_Captcha
- * @author   Rico Sonntag <mail@ricosonntag.de>
+ * @author   Rico Sonntag <rico.sonntag@netresearch.de>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  * @see      http://pear.php.net/package/Text_CAPTCHA

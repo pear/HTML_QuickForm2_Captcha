@@ -103,6 +103,7 @@ class HTML_QuickForm2_Element_Captcha_Session
         if (isset($_SESSION[$this->varname][$varname])) {
             return $_SESSION[$this->varname][$varname];
         }
+
         return null;
     }
 

@@ -15,7 +15,7 @@ require_once 'HTML/QuickForm2/Element/InputText.php';
 require_once 'HTML/QuickForm2/Element/Captcha/Session.php';
 
 /**
- * Base class for captcha elements for QuickForm2:
+ * Base class for captcha elements for HTML_QuickForm2:
  * Completely Automated Public Turing test to tell Computers and Humans Apart.
  * Used as anti-spam measure.
  *

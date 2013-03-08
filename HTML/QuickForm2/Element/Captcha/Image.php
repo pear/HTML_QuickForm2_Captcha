@@ -13,8 +13,11 @@ declare(encoding = 'UTF-8');
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  */
 
+/**
+ * Includes
+ */
 require_once 'Text/CAPTCHA.php';
-require_once 'HTML/QuickForm2/Element/Captcha.php';
+require_once 'HTML/QuickForm2/Element/Captcha/Text.php';
 
 /**
  * Image captcha element for HTML_QuickForm2.
@@ -36,8 +39,15 @@ require_once 'HTML/QuickForm2/Element/Captcha.php';
  * @see      http://pear.php.net/package/Text_CAPTCHA
  */
 class HTML_QuickForm2_Element_Captcha_Image
-    extends HTML_QuickForm2_Element_Captcha
+    extends HTML_QuickForm2_Element_Captcha_Text
 {
+    /**
+     * Type of text captcha to create.
+     *
+     * @var string
+     */
+    protected $captchaType = 'Image';
+
     /**
      * Image cache path.
      *
@@ -84,26 +94,6 @@ class HTML_QuickForm2_Element_Captcha_Image
         }
 
         $this->imageSuffix = '.' . $data['output'];
-
-        // Set adapter specific options
-        $this->init($data);
-    }
-
-    /**
-     * Init the Text_CAPTCHA object used for generating question and answer.
-     * Create a new instance if the adapter is not set yet.
-     *
-     * @param array $data Element data (special captcha settings)
-     *
-     * @return void
-     */
-    public function init(array $data = array())
-    {
-        if ($this->adapter === null) {
-            $this->adapter = Text_CAPTCHA::factory('Image');
-        }
-
-        $this->adapter->init($data);
     }
 
     /**
@@ -154,45 +144,6 @@ class HTML_QuickForm2_Element_Captcha_Image
         );
 
         return true;
-    }
-
-    /**
-     * Checks if the captcha is solved now.
-     * Uses $capSolved variable or user input, which is compared
-     * with the pre-set correct answer.
-     *
-     * Calls generateCaptcha() if it has not been called before.
-     *
-     * In case user solution and answer match, a session variable
-     * is set so that the captcha is seen as completed across
-     * form submissions.
-     *
-     * @uses $capGenerated
-     * @uses generateCaptcha()
-     *
-     * @return boolean TRUE if the captcha is solved
-     */
-    protected function verifyCaptcha()
-    {
-        // Check session and generate captcha if necessary
-        if (parent::verifyCaptcha()) {
-            return true;
-        }
-
-        // Verify given answer with our answer
-        $userSolution = $this->getValue();
-
-        if ($this->getSession()->answer === null) {
-            //no captcha answer?
-            return false;
-        } else {
-            if ($this->getSession()->answer != $userSolution) {
-                return false;
-            } else {
-                $this->getSession()->solved = true;
-                return true;
-            }
-        }
     }
 
     /**

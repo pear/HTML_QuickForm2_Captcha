@@ -56,7 +56,10 @@ abstract class HTML_QuickForm2_Element_Captcha
      *
      * @var array
      */
-    protected $attributes = array('size' => 5);
+    protected $attributes = array(
+        'size' => 5,
+        'type' => 'text'
+    );
 
     /**
      * If the captcha has been generated and initialized already

@@ -193,6 +193,7 @@ class HTML_QuickForm2_Element_Captcha_Image
                 . ' alt="CAPTCHA"'
                 . ' src="' . htmlspecialchars(
                     $this->imageDirUrl . $this->getSession()->question
+                    . '?ts=' . time()
                 ) . '"'
                 . '/>'
                 . '</div>';

@@ -26,6 +26,11 @@
   <email>cweiske@php.net</email>
   <active>yes</active>
  </lead>
+ <developer>
+  <name>Rico Sonntag</name>
+  <email>mail@ricosonntag.de</email>
+  <active>yes</active>
+ </developer>
 
  <date>2010-05-25</date>
 

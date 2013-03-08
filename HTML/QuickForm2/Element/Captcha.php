@@ -8,7 +8,6 @@
  * @package  HTML_QuickForm2_Captcha
  * @author   Christian Weiske <cweiske@php.net>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
- * @version  SVN: $Id: InputText.php 294057 2010-01-26 21:10:28Z avb $
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  */
 
@@ -74,8 +73,6 @@ abstract class HTML_QuickForm2_Element_Captcha
      */
     protected $session = null;
 
-
-
     /**
      * Create new instance.
      *
@@ -106,8 +103,6 @@ abstract class HTML_QuickForm2_Element_Captcha
         parent::__construct($name, $attributes, $data);
     }
 
-
-
     /**
      * Prepares the session data for the captcha.
      * Child classes overwrite this method do do further intialization,
@@ -133,8 +128,6 @@ abstract class HTML_QuickForm2_Element_Captcha
         return true;
     }
 
-
-
     /**
      * Returns the name to use for the session variable.
      * We include the element's ID to make sure we can use several
@@ -148,6 +141,7 @@ abstract class HTML_QuickForm2_Element_Captcha
     {
         $el     = $this;
         $idpath = '';
+
         do {
             $idpath .= '-' . $el->getId();
         } while ($el = $el->getContainer());
@@ -156,8 +150,6 @@ abstract class HTML_QuickForm2_Element_Captcha
             . $idpath
             . '-data';
     }
-
-
 
     /**
      * Returns the captcha session object
@@ -169,10 +161,9 @@ abstract class HTML_QuickForm2_Element_Captcha
         if ($this->session === null) {
             $this->session = new HTML_QuickForm2_Element_Captcha_Session();
         }
+
         return $this->session;
     }
-
-
 
     /**
      * Sets a new session object.
@@ -186,8 +177,6 @@ abstract class HTML_QuickForm2_Element_Captcha
     {
         $this->session = $session;
     }
-
-
 
     /**
      * Checks if the captcha is solved now.
@@ -212,8 +201,6 @@ abstract class HTML_QuickForm2_Element_Captcha
         return false;
     }
 
-
-
     /**
      * Destroys all captcha session data, so that the previously solved
      * captcha re-appears as unsolved. Question and answers are discarded
@@ -226,8 +213,6 @@ abstract class HTML_QuickForm2_Element_Captcha
         $this->getSession()->clear();
     }
 
-
-
     /**
      * Performs the server-side validation.
      * Checks captcha validation first, continues with
@@ -237,17 +222,14 @@ abstract class HTML_QuickForm2_Element_Captcha
      */
     protected function validate()
     {
-        //alternative: use custom rule to get error messages
+        // Alternative: use custom rule to get error messages
         if (!$this->verifyCaptcha()) {
-            $this->setError(
-                $this->data['captchaSolutionWrong']
-            );
+            $this->setError($this->data['captchaSolutionWrong']);
             return false;
         }
+
         return parent::validate();
     }
-
-
 
     /**
      * Returns the CAPTCHA type.
@@ -258,8 +240,6 @@ abstract class HTML_QuickForm2_Element_Captcha
     {
         return 'captcha';
     }
-
-
 
     /**
      * Sets the input value
@@ -274,8 +254,6 @@ abstract class HTML_QuickForm2_Element_Captcha
         return $this;
     }
 
-
-
     /**
      * Returns the captcha answer input element value.
      * No value (null) when the element is disabled.
@@ -289,10 +267,8 @@ abstract class HTML_QuickForm2_Element_Captcha
             : $this->getAttribute('value');
     }
 
-
-
     /**
-     * Renders the captcha into a HTML string.
+     * Renders the captcha into a HTML string
      *
      * Catches all thrown exceptions - since __toString()
      * may not throw any - and returns them as error message
@@ -322,8 +298,6 @@ abstract class HTML_QuickForm2_Element_Captcha
         }
     }
 
-
-
     /**
      * Returns the HTML for the captcha
      * (question + input element if applicable)
@@ -341,8 +315,6 @@ abstract class HTML_QuickForm2_Element_Captcha
      * @return string HTML code
      */
     abstract public function getCaptchaHtml();
-
-
 
     /**
      * Returns the HTML code when the form is frozen.

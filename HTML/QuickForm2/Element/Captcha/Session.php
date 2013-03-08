@@ -24,7 +24,6 @@
  */
 class HTML_QuickForm2_Element_Captcha_Session
 {
-
     /**
      * Session variable name.
      *
@@ -59,8 +58,6 @@ class HTML_QuickForm2_Element_Captcha_Session
         }
     }
 
-
-
     /**
      * Clears the data stored in this session.
      *
@@ -73,8 +70,6 @@ class HTML_QuickForm2_Element_Captcha_Session
         }
     }
 
-
-
     /**
      * If the session already has data
      *
@@ -86,7 +81,15 @@ class HTML_QuickForm2_Element_Captcha_Session
         return isset($_SESSION[$this->varname]);
     }
 
-
+    /**
+     * Return session ID
+     *
+     * @return string ID that identifies the session
+     */
+    public function getSessionId()
+    {
+        return session_id();
+    }
 
     /**
      * Returns a session variable.
@@ -102,8 +105,6 @@ class HTML_QuickForm2_Element_Captcha_Session
         }
         return null;
     }
-
-
 
     /**
      * Sets the value of a session variable.

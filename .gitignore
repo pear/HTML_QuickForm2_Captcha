@@ -1,2 +1,3 @@
 *.tgz
 releases
+/docs/examples/tmp/*.png

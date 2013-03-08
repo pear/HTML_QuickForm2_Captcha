@@ -52,9 +52,12 @@
      <dir name="Element">
       <file role="php" name="Captcha.php" />
       <dir name="Captcha">
+       <file role="php" name="Figlet.php" />
+       <file role="php" name="Image.php" />
        <file role="php" name="Numeral.php" />
        <file role="php" name="ReCaptcha.php" />
        <file role="php" name="Session.php" />
+       <file role="php" name="TextCAPTCHA.php" />
       </dir>
      </dir>
     </dir>
@@ -63,6 +66,8 @@
     <dir name="examples">
      <file role="doc" name="demo-captcha.php" />
      <file role="doc" name="numeral-captcha.php" />
+     <dir name="tmp">
+     </dir>
     </dir>
    </dir>
   </dir>
@@ -80,7 +85,7 @@
    <package>
     <name>HTML_QuickForm2</name>
     <channel>pear.php.net</channel>
-    <min>0.4.0</min>
+    <min>2.0.0</min>
    </package>
   </required>
 

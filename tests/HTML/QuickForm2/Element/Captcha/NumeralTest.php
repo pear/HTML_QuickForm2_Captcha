@@ -1,10 +1,11 @@
 <?php
-require_once 'HTML/QuickForm2/Element/NumeralCaptcha.php';
+require_once 'HTML/QuickForm2/Element/Captcha/Numeral.php';
+require_once 'Text/CAPTCHA/Numeral.php';
 
-class HTML_QuickForm2_Element_NumeralCaptchaTest extends PHPUnit_Framework_TestCase
+class HTML_QuickForm2_Element_Captcha_NumeralTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var HTML_QuickForm2_Element_NumeralCaptcha
+     * @var HTML_QuickForm2_Element_Captcha_Numeral
      */
     protected $nc;
 
@@ -19,7 +20,7 @@ class HTML_QuickForm2_Element_NumeralCaptchaTest extends PHPUnit_Framework_TestC
             session_start();
         }
 
-        $this->nc = new HTML_QuickForm2_Element_NumeralCaptcha();
+        $this->nc = new HTML_QuickForm2_Element_Captcha_Numeral();
         $this->nc->clearCaptchaSession();
     }
 

@@ -27,21 +27,19 @@ div.element.error input {
  <body>
 <?php
 //you do not need this. for development purposes only
-set_include_path(
-    '../../'
-    . ':' . get_include_path()
-);
+set_include_path('../../' . PATH_SEPARATOR . get_include_path());
+error_reporting(error_reporting() & ~E_STRICT);
 
 //include main quickform class
 require_once 'HTML/QuickForm2.php';
 //include the numeral captcha class file. necessary because
 // the QuickForm2 Captcha is separate from QuickForm2 itself.
-require_once 'HTML/QuickForm2/Element/NumeralCaptcha.php';
+require_once 'HTML/QuickForm2/Element/Captcha/Numeral.php';
 
 //register the numeral captcha element with QuickForm2
 HTML_QuickForm2_Factory::registerElement(
     'numeralcaptcha',
-    'HTML_QuickForm2_Element_NumeralCaptcha'
+    'HTML_QuickForm2_Element_Captcha_Numeral'
 );
 
 //create a new form

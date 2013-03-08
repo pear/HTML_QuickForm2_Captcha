@@ -33,7 +33,7 @@ require_once 'HTML/QuickForm2/Element/Captcha.php';
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  * @see      http://pear.php.net/package/Text_CAPTCHA_Numeral
  */
-class HTML_QuickForm2_Element_NumeralCaptcha
+class HTML_QuickForm2_Element_Captcha_Numeral
     extends HTML_QuickForm2_Element_Captcha
 {
     /**
@@ -42,8 +42,6 @@ class HTML_QuickForm2_Element_NumeralCaptcha
      * @var Text_CAPTCHA_Numeral
      */
     protected $numeral = null;
-
-
 
     /**
      * Returns the Text_CAPTCHA_Numeral object used for
@@ -60,8 +58,6 @@ class HTML_QuickForm2_Element_NumeralCaptcha
         return $this->numeral;
     }
 
-
-
     /**
      * Sets the Text_CAPTCHA_Numeral object.
      * Useful for changing options.
@@ -74,8 +70,6 @@ class HTML_QuickForm2_Element_NumeralCaptcha
     {
         $this->numeral = $numeral;
     }
-
-
 
     /**
      * Generates the captcha question and answer and prepares the
@@ -99,8 +93,6 @@ class HTML_QuickForm2_Element_NumeralCaptcha
 
         return true;
     }
-
-
 
     /**
      * Checks if the captcha is solved now.
@@ -138,8 +130,6 @@ class HTML_QuickForm2_Element_NumeralCaptcha
         }
     }
 
-
-
     /**
      * Returns the HTML for the captcha question and answer.
      *
@@ -165,11 +155,8 @@ class HTML_QuickForm2_Element_NumeralCaptcha
                 . $this->getSession()->question
                 . '</div>';
         }
-        return $prefix
-            . '<input' . $this->getAttributes(true) . ' />';
+        return $prefix . '<input' . $this->getAttributes(true) . ' />';
     }
-
-
 
     /**
      * Returns the HTML code when the form is frozen.
@@ -185,6 +172,5 @@ class HTML_QuickForm2_Element_NumeralCaptcha
         return $this->getSession()->question;
     }
 }
-
 
 ?>

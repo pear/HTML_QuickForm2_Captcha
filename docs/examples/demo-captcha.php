@@ -14,21 +14,20 @@ div.element.error input {
  </head>
  <body>
 <?php
-set_include_path(
-    '../../'
-    . ':' . get_include_path()
-);
+set_include_path('../../' . PATH_SEPARATOR . get_include_path());
+error_reporting(error_reporting() & ~E_STRICT);
+
 require_once 'HTML/QuickForm2.php';
-require_once 'HTML/QuickForm2/Element/NumeralCaptcha.php';
-require_once 'HTML/QuickForm2/Element/ReCaptcha.php';
+require_once 'HTML/QuickForm2/Element/Captcha/Numeral.php';
+require_once 'HTML/QuickForm2/Element/Captcha/ReCaptcha.php';
 
 HTML_QuickForm2_Factory::registerElement(
     'numeralcaptcha',
-    'HTML_QuickForm2_Element_NumeralCaptcha'
+    'HTML_QuickForm2_Element_Captcha_Numeral'
 );
 HTML_QuickForm2_Factory::registerElement(
     'recaptcha',
-    'HTML_QuickForm2_Element_ReCaptcha'
+    'HTML_QuickForm2_Element_Captcha_ReCaptcha'
 );
 
 $form = new HTML_QuickForm2(

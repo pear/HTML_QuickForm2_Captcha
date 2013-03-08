@@ -8,7 +8,6 @@
  * @package  HTML_QuickForm2_Captcha
  * @author   Christian Weiske <cweiske@php.net>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
- * @version  SVN: $Id: InputText.php 294057 2010-01-26 21:10:28Z avb $
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  */
 
@@ -32,7 +31,7 @@ require_once 'HTML/QuickForm2/Element/Captcha.php';
  * - multiple recaptchas in one form
  * - automatically set recaptcha language option
  */
-class HTML_QuickForm2_Element_ReCaptcha
+class HTML_QuickForm2_Element_Captcha_ReCaptcha
     extends HTML_QuickForm2_Element_Captcha
 {
     /**
@@ -41,8 +40,6 @@ class HTML_QuickForm2_Element_ReCaptcha
      * @var Services_ReCaptcha
      */
     protected $reCaptcha = null;
-
-
 
     /**
      * Checks if the captcha is solved now.
@@ -81,8 +78,6 @@ class HTML_QuickForm2_Element_ReCaptcha
         return false;
     }
 
-
-
     /**
      * Returns the HTML containing the ReCaptcha element.
      *
@@ -101,8 +96,6 @@ class HTML_QuickForm2_Element_ReCaptcha
     {
         return (string)$this->getReCaptcha();
     }
-
-
 
     /**
      * Returns the Services_ReCaptcha instance.
@@ -135,8 +128,6 @@ class HTML_QuickForm2_Element_ReCaptcha
         );
         return $this->reCaptcha;
     }
-
 }
-
 
 ?>

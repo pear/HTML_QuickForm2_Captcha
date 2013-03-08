@@ -43,7 +43,6 @@ require_once 'HTML/QuickForm2/Element/Captcha/Session.php';
 abstract class HTML_QuickForm2_Element_Captcha
     extends HTML_QuickForm2_Element_Input
 {
-
     /**
      * Prefix for session variable used to store captcha
      * settings in.
@@ -83,8 +82,7 @@ abstract class HTML_QuickForm2_Element_Captcha
      *                          solution entered by the user is wrong
      * - captchaRender        - Boolean to determine if the captcha itself
      *                          is to be rendered with the solution
-     *                          input element (true), or the input element
-     *                          alone
+     *                          input element
      *
      * @param string $name       Element name
      * @param mixed  $attributes Attributes (either a string or an array)

@@ -51,9 +51,9 @@
     <dir name="QuickForm2">
      <dir name="Element">
       <file role="php" name="Captcha.php" />
-      <file role="php" name="NumeralCaptcha.php" />
-      <file role="php" name="ReCaptcha.php" />
       <dir name="Captcha">
+       <file role="php" name="Numeral.php" />
+       <file role="php" name="ReCaptcha.php" />
        <file role="php" name="Session.php" />
       </dir>
      </dir>

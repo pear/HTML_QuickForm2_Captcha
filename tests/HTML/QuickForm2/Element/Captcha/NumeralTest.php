@@ -2,6 +2,11 @@
 require_once 'HTML/QuickForm2/Element/Captcha/Numeral.php';
 require_once 'Text/CAPTCHA/Numeral.php';
 
+/**
+ *
+ * @runTestsInSeparateProcesses
+ * needed because of session header sending
+ */
 class HTML_QuickForm2_Element_Captcha_NumeralTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -30,7 +35,7 @@ class HTML_QuickForm2_Element_Captcha_NumeralTest extends PHPUnit_Framework_Test
     public function testGetNumeral()
     {
         $num = $this->nc->getNumeral();
-        $this->assertType(
+        $this->assertInstanceOf(
             'Text_CAPTCHA_Numeral', $num
         );
 

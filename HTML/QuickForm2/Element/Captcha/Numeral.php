@@ -82,7 +82,6 @@ class HTML_QuickForm2_Element_Captcha_Numeral
      */
     protected function generateCaptcha()
     {
-        $varname = $this->getSessionVarName();
         if (!parent::generateCaptcha()) {
             return false;
         }

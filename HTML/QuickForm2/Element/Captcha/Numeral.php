@@ -122,7 +122,9 @@ class HTML_QuickForm2_Element_Captcha_Numeral
         if ($this->getSession()->answer === null) {
             //no captcha answer?
             return false;
-        } else if ($this->getSession()->answer != $userSolution) {
+        } else if ($userSolution === null
+            || $this->getSession()->answer != $userSolution
+        ) {
             return false;
         } else {
             $this->getSession()->solved = true;

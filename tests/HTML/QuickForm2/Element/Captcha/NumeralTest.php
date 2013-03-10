@@ -217,20 +217,15 @@ class HTML_QuickForm2_Element_Captcha_NumeralTest extends PHPUnit_Framework_Test
      */
     public function test__toStringFrozenNoRender()
     {
-        $this->nc->toggleFrozen(true);
-        //make sure we have a known captcha question
-        $cap = new Text_CAPTCHA_Numeral(
-            Text_CAPTCHA_Numeral::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY,
-            10, 11
+        $this->nc = new HTML_QuickForm2_Element_Captcha_Numeral(
+            null, null, array('captchaRender' => false)
         );
-        $this->nc->setNumeral($cap);
+        $this->nc->setSession(new HTML_QuickForm2_Element_Captcha_Session_Mock());
+        $this->nc->toggleFrozen(true);
 
         $str = (string)$this->nc;
         //not empty string
         $this->assertEquals('', $str, 'Frozen string is not empty');
-
-        //FIXME: check for equation when we get a new numeral captcha
-        // version
     }
 }
 ?>

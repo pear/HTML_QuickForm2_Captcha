@@ -1,12 +1,8 @@
 <?php
 require_once 'HTML/QuickForm2/Element/Captcha/Numeral.php';
+require_once 'HTML/QuickForm2/Element/Captcha/Session/Mock.php';
 require_once 'Text/CAPTCHA/Numeral.php';
 
-/**
- *
- * @runTestsInSeparateProcesses
- * needed because of session header sending
- */
 class HTML_QuickForm2_Element_Captcha_NumeralTest extends PHPUnit_Framework_TestCase
 {
     /**
@@ -20,13 +16,8 @@ class HTML_QuickForm2_Element_Captcha_NumeralTest extends PHPUnit_Framework_Test
      */
     protected function setUp()
     {
-        //start session if not done yet
-        if (session_id() == '') {
-            session_start();
-        }
-
         $this->nc = new HTML_QuickForm2_Element_Captcha_Numeral();
-        $this->nc->clearCaptchaSession();
+        $this->nc->setSession(new HTML_QuickForm2_Element_Captcha_Session_Mock());
     }
 
     /**
@@ -81,6 +72,34 @@ class HTML_QuickForm2_Element_Captcha_NumeralTest extends PHPUnit_Framework_Test
         $this->assertTag(array('test'), $xml, '', false);
     }
 
+    public function testSolutionZero()
+    {
+        //make sure we have a known captcha question
+        $cap = new Text_CAPTCHA_Numeral(
+            Text_CAPTCHA_Numeral::TEXT_CAPTCHA_NUMERAL_COMPLEXITY_ELEMENTARY,
+            10, 10
+        );
+        $p = new ReflectionProperty('Text_CAPTCHA_Numeral', 'operator');
+        $p->setAccessible(true);
+        $p->setValue($cap, '-');
+
+        $m = new ReflectionMethod('Text_CAPTCHA_Numeral', 'setOperation');
+        $m->setAccessible(true);
+        $m->invoke($cap);
+        $this->nc->setNumeral($cap);
+
+        //force session and question intialisation
+        (string)$this->nc;
+        $this->assertFalse(
+            $this->nc->getSession()->solved,
+            'Captcha should not be solved already'
+        );
+        $this->assertSame(null, $this->nc->getValue());
+
+        $str = (string)$this->nc;
+        $data = $this->nc->getData();
+        $this->assertContains('10 - 10', $str);
+    }
 
 
     /**

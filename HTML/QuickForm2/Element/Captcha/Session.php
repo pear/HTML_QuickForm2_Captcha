@@ -14,8 +14,6 @@
 /**
  * HTML_QuickForm2 Captcha session storage
  *
- * PHP version 5
- *
  * @category HTML
  * @package  HTML_QuickForm2_Captcha
  * @author   Christian Weiske <cweiske@php.net>
@@ -39,7 +37,7 @@ class HTML_QuickForm2_Element_Captcha_Session
      * of a form element may change its ID until the form gets
      * used.
      *
-     * @param string $varname Variable name to use
+     * @param string $varname Session variable name to use
      *
      * @return void
      *

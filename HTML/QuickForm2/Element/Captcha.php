@@ -296,7 +296,9 @@ abstract class HTML_QuickForm2_Element_Captcha
             }
 
         } catch (Exception $e) {
-            return 'Error: ' . $e->getMessage();
+            return '<div class="captcha-exception">'
+                . 'Error: ' . $e->getMessage()
+                . '</div>';
         }
     }
 

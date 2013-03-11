@@ -13,6 +13,7 @@
 
 require_once 'Services/ReCaptcha.php';
 require_once 'HTML/QuickForm2/Element/Captcha.php';
+require_once 'HTML/QuickForm2/Element/Captcha/Exception.php';
 
 /**
  * Captcha element utilizing the ReCaptcha service.
@@ -111,13 +112,13 @@ class HTML_QuickForm2_Element_Captcha_ReCaptcha
 
         if (!isset($this->data['public-key'])) {
             //no public key set
-            throw new HTML_QuickForm2_Exception(
+            throw new HTML_QuickForm2_Element_Captcha_Exception(
                 'Captcha element requires "public-key" data to be set'
             );
         }
         if (!isset($this->data['private-key'])) {
             //no private key set
-            throw new HTML_QuickForm2_Exception(
+            throw new HTML_QuickForm2_Element_Captcha_Exception(
                 'Captcha element requires "private-key" data to be set'
             );
         }

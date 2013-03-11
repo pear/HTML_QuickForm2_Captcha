@@ -13,6 +13,7 @@
 
 require_once 'Text/CAPTCHA.php';
 require_once 'HTML/QuickForm2/Element/Captcha.php';
+require_once 'HTML/QuickForm2/Element/Captcha/Exception.php';
 
 /**
  * Quickform2 captcha element that uses the Text_CAPTCHA package
@@ -85,6 +86,9 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHA
      *
      * @return boolean TRUE when the captcha has been created newly, FALSE
      *                 if it already existed.
+     *
+     * @throws HTML_QuickForm2_Element_Captcha_Exception When the Text_CAPTCHA
+     *         adapter cannot be initialized correctly
      */
     protected function generateCaptcha()
     {
@@ -93,7 +97,7 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHA
         }
         if (!$this->adapter) {
             if (!isset($this->data['captchaType'])) {
-                throw new HTML_QuickForm2_Exception(
+                throw new HTML_QuickForm2_Element_Captcha_Exception(
                     'data[captchaType] is not set'
                 );
             }
@@ -107,7 +111,7 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHA
 
         $question = $this->adapter->getCAPTCHA();
         if (PEAR::isError($question)) {
-            throw new HTML_QuickForm2_Exception(
+            throw new HTML_QuickForm2_Element_Captcha_Exception(
                 $question->message, $question->code
             );
         }

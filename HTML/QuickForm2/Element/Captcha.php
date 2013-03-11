@@ -112,7 +112,7 @@ abstract class HTML_QuickForm2_Element_Captcha
      * @return boolean True when the captcha has been created newly, false
      *                 if it already existed.
      *
-     * @throws HTML_QuickForm2_Exception When the session is not started yet
+     * @throws HTML_QuickForm2_Captcha_Exception When the session is not started yet
      */
     protected function generateCaptcha()
     {

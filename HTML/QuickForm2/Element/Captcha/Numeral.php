@@ -14,6 +14,7 @@
 
 require_once 'Text/CAPTCHA/Numeral.php';
 require_once 'HTML/QuickForm2/Element/Captcha.php';
+require_once 'HTML/QuickForm2/Element/Captcha/Exception.php';
 
 /**
  * Numeral captcha element for HTML_QuickForm2.
@@ -78,7 +79,8 @@ class HTML_QuickForm2_Element_Captcha_Numeral
      * @return boolean True when the captcha has been created newly, false
      *                 if it already existed.
      *
-     * @throws HTML_QuickForm2_Exception When the session is not started yet
+     * @throws HTML_QuickForm2_Element_Captcha_Exception
+     *         When the session is not started yet
      */
     protected function generateCaptcha()
     {

@@ -11,6 +11,8 @@
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  */
 
+require_once 'HTML/QuickForm2/Element/Captcha/Exception.php';
+
 /**
  * HTML_QuickForm2 Captcha session storage
  *
@@ -41,7 +43,8 @@ class HTML_QuickForm2_Element_Captcha_Session
      *
      * @return void
      *
-     * @throws HTML_QuickForm2_Exception When the session has not been started
+     * @throws HTML_QuickForm2_Element_Captcha_Exception
+     *         When the session has not been started
      */
     public function init($varname)
     {
@@ -50,7 +53,7 @@ class HTML_QuickForm2_Element_Captcha_Session
         if (session_id() == '') {
             // Session has not been started yet. That's not acceptable
             // and breaks captcha answer storage
-            throw new HTML_QuickForm2_Exception(
+            throw new HTML_QuickForm2_Element_Captcha_Exception(
                 'Session must be started'
             );
         }

@@ -34,8 +34,6 @@ class HTML_QuickForm2_Element_Captcha_Session_Mock
      * @param string $varname Session variable name to use
      *
      * @return void
-     *
-     * @throws HTML_QuickForm2_Exception When the session has not been started
      */
     public function init($varname)
     {

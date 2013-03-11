@@ -41,12 +41,12 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHA
      * Constructor. Set adapter specific data attributes.
      *
      * Text_CAPTCHA settings are provided in $data['captcha'].
-     * $data['captchaTtype'] specifies the Text_CAPTCHA driver name,
-     * e.g. "Equation" or "Word".
+     * $data['captchaType'] specifies the Text_CAPTCHA driver name,
+     * e.g. "Equation", "Figlet" or "Word".
      * All other data['captcha'] settings are passed to it's init() method.
      *
-     * Do not use this class directly for "Figlet" and "Image" types,
-     * there are own classes for them.
+     * Do not use this class directly for the "Image" type,
+     * there is an own class for that one.
      *
      * @param string $name       Element name
      * @param mixed  $attributes Attributes (either a string or an array)

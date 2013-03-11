@@ -120,7 +120,12 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHA
             );
             $captchaOptions = $this->data;
             unset($captchaOptions['captchaType']);
-            $this->adapter->init($captchaOptions);
+            $ret = $this->adapter->init($captchaOptions);
+            if (PEAR::isError($ret)) {
+                throw new HTML_QuickForm2_Element_Captcha_Exception(
+                    $ret->message, $ret->code
+                );
+            }
         }
 
         $question = $this->adapter->getCAPTCHA();

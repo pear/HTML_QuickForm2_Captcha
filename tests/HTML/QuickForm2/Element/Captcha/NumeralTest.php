@@ -52,7 +52,7 @@ class HTML_QuickForm2_Element_Captcha_NumeralTest extends PHPUnit_Framework_Test
 
     public function testGenerateCaptchaTwoTimes()
     {
-        $ses = new HTML_QuickForm2_Element_Captcha_Session_Mock($ses);
+        $ses = new HTML_QuickForm2_Element_Captcha_Session_Mock();
         $this->nc->setSession($ses);
 
         $gc = new ReflectionMethod(get_class($this->nc), 'generateCaptcha');

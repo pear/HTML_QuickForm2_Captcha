@@ -41,7 +41,6 @@ set_include_path(
 require_once 'PEAR/Config.php';
 require_once 'HTML/QuickForm2.php';
 //require_once 'HTML/QuickForm2/Element/Captcha/Equation.php';
-require_once 'HTML/QuickForm2/Element/Captcha/Figlet.php';
 require_once 'HTML/QuickForm2/Element/Captcha/Image.php';
 require_once 'HTML/QuickForm2/Element/Captcha/Numeral.php';
 require_once 'HTML/QuickForm2/Element/Captcha/ReCaptcha.php';
@@ -68,11 +67,12 @@ $form->addElement(
 );
 
 $form->addElement(
-    new HTML_QuickForm2_Element_Captcha_Figlet(
+    new HTML_QuickForm2_Element_Captcha_TextCAPTCHA(
         'captcha[figlet]',
         array('id' => 'captcha_figlet'),
         array(
             'label' => 'Figlet',
+            'captchaType' => 'Figlet',
             'options' => array(
                 'font_file' => 'makisupa.flf'
             ),

@@ -119,7 +119,7 @@ class HTML_QuickForm2_Element_Captcha_Numeral
         //verify given answer with our answer
         $userSolution = $this->getValue();
         if ($this->getSession()->answer === null) {
-            //no captcha answer?
+            //no stored captcha answer?
             return false;
         } else if ($userSolution === null
             || $this->getSession()->answer != $userSolution

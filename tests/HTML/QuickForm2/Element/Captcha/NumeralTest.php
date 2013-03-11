@@ -51,6 +51,49 @@ class HTML_QuickForm2_Element_Captcha_NumeralTest extends PHPUnit_Framework_Test
         $this->assertEquals($cap, $num2);
     }
 
+    public function testGenerateCaptchaTwoTimes()
+    {
+        $ses = new HTML_QuickForm2_Element_Captcha_Session_Mock($ses);
+        $this->nc->setSession($ses);
+
+        $gc = new ReflectionMethod(get_class($this->nc), 'generateCaptcha');
+        $gc->setAccessible(true);
+        $this->assertTrue($gc->invoke($this->nc));
+
+        $this->assertFalse(
+            $gc->invoke($this->nc),
+            'Calling generateCaptcha() a second time should not regenerate it'
+        );
+    }
+
+    public function testVerifyCaptchaNoAnswerInSession()
+    {
+        $ses = new HTML_QuickForm2_Element_Captcha_Session_Mock($ses);
+        $this->nc->setSession($ses);
+
+        $vc = new ReflectionMethod(get_class($this->nc), 'verifyCaptcha');
+        $vc->setAccessible(true);
+        $this->assertFalse($vc->invoke($this->nc));
+
+        //remove answer to simulate a broken session
+        $ses->answer = null;
+        $this->assertFalse($vc->invoke($this->nc));
+    }
+
+    public function testVerifyCaptchaAlreadySolved()
+    {
+        $ses = new HTML_QuickForm2_Element_Captcha_Session_Mock($ses);
+        $this->nc->setSession($ses);
+
+        $vc = new ReflectionMethod(get_class($this->nc), 'verifyCaptcha');
+        $vc->setAccessible(true);
+        $this->assertFalse($vc->invoke($this->nc));
+
+        //set captcha in session to solved
+        $ses->solved = true;
+        $this->assertTrue($vc->invoke($this->nc));
+    }
+
     /**
      * Check the generated HTML for well-formedness.
      */

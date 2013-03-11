@@ -1,7 +1,6 @@
 <?php
 require_once 'HTML/QuickForm2/Element/Captcha/Numeral.php';
 require_once 'HTML/QuickForm2/Element/Captcha/Session/Mock.php';
-require_once 'Text/CAPTCHA/Numeral.php';
 
 class HTML_QuickForm2_Element_Captcha_NumeralTest extends PHPUnit_Framework_TestCase
 {

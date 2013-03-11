@@ -38,6 +38,24 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHATest
         );
     }
 
+    public function testLoadAdapterError()
+    {
+        $tc = new HTML_QuickForm2_Element_Captcha_TextCAPTCHA(
+            null, null,
+            array(
+                'captchaType' => 'Figlet',
+                'options' => array('fontFile' => 'doesnotexist.flf')
+            )
+        );
+        $tc->setSession(new HTML_QuickForm2_Element_Captcha_Session_Mock());
+
+        //force initialization
+        $f = (string)$tc;
+        $this->assertContains(
+            'Error: Error loading Text_Figlet font', $f
+        );
+    }
+
     public function testGetAdapter()
     {
         $tc = new HTML_QuickForm2_Element_Captcha_TextCAPTCHA(

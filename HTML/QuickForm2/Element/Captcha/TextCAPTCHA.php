@@ -95,6 +95,20 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHA
         if (!parent::generateCaptcha()) {
             return false;
         }
+        $this->loadAdapter();
+
+        return true;
+    }
+
+    /**
+     * Load the adapter instance
+     *
+     * @return void
+     * @throws HTML_QuickForm2_Element_Captcha_Exception When the Text_CAPTCHA
+     *         adapter cannot be initialized correctly
+     */
+    protected function loadAdapter()
+    {
         if (!$this->adapter) {
             if (!isset($this->data['captchaType'])) {
                 throw new HTML_QuickForm2_Element_Captcha_Exception(

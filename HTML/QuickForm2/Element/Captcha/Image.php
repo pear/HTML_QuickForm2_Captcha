@@ -107,6 +107,7 @@ class HTML_QuickForm2_Element_Captcha_Image
             // Create a new captcha if file no longer exists
             $this->getSession()->clear();
             $this->getSession()->solved = false;
+            $this->loadAdapter();
         }
 
         $session = $this->getSession();

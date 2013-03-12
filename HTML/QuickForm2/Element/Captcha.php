@@ -319,17 +319,6 @@ abstract class HTML_QuickForm2_Element_Captcha
      * @return string HTML code
      */
     abstract public function getCaptchaHtml();
-
-    /**
-     * Returns the HTML code when the form is frozen.
-     *
-     * Override this in child classes.
-     *
-     * @return string HTML code
-     */
-    public function getFrozenHtml()
-    {
-    }
 }
 
 ?>

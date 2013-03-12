@@ -54,7 +54,7 @@ class HTML_QuickForm2_Element_Captcha_Session
             // Session has not been started yet. That's not acceptable
             // and breaks captcha answer storage
             throw new HTML_QuickForm2_Element_Captcha_Exception(
-                'Session must be started'
+                'Session must be started for CAPTCHA to work'
             );
         }
     }

@@ -194,18 +194,38 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHA
      */
     public function getCaptchaHtml()
     {
-        $prefix = '';
+        return $this->renderQuestion()
+            . '<input' . $this->getAttributes(true) . ' />';
+    }
 
-        if ($this->data['captchaRender']) {
-            $prefix = '<div'
-                . self::getAttributesString(
-                    $this->data['captchaHtmlAttributes']
-                ) . '>'
-                . $this->getSession()->question
-                . '</div>';
+    /**
+     * Returns the HTML code when the form is frozen.
+     *
+     * @return string HTML code
+     */
+    public function getFrozenHtml()
+    {
+        return $this->renderQuestion();
+    }
+
+    /**
+     * Renders the CAPTCHA question in HTML and returns it.
+     * Returns empty string when "captchaRender" option is false.
+     *
+     * @return string HTML
+     */
+    protected function renderQuestion()
+    {
+        if (!$this->data['captchaRender']) {
+            return '';
         }
 
-        return $prefix . '<input' . $this->getAttributes(true) . ' />';
+        return '<div'
+            . self::getAttributesString(
+                $this->data['captchaHtmlAttributes']
+            ) . '>'
+            . $this->getSession()->question
+            . '</div>';
     }
 }
 ?>

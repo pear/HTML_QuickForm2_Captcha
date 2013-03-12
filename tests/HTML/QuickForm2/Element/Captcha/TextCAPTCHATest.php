@@ -160,5 +160,17 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHATest
 
         $this->assertEquals($one, $two);
     }
+
+    public function test__toStringFrozen()
+    {
+        $tc = new HTML_QuickForm2_Element_Captcha_TextCAPTCHA(
+            null, null, array('captchaType' => 'Word', 'phrase' => '123')
+        );
+        $tc->setSession(new HTML_QuickForm2_Element_Captcha_Session_Mock());
+        $tc->toggleFrozen(true);
+
+        $html = (string)$tc;
+        $this->assertContains('one two three', $html);
+    }
 }
 ?>

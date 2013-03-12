@@ -46,7 +46,7 @@ class HTML_QuickForm2_Element_Captcha_Session
      * @throws HTML_QuickForm2_Element_Captcha_Exception
      *         When the session has not been started
      */
-    public function init($varname)
+    public function setVarname($varname)
     {
         $this->varname = $varname;
 

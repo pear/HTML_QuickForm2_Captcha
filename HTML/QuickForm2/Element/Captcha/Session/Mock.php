@@ -35,7 +35,7 @@ class HTML_QuickForm2_Element_Captcha_Session_Mock
      *
      * @return void
      */
-    public function init($varname)
+    public function setVarname($varname)
     {
         $this->varname = $varname;
     }

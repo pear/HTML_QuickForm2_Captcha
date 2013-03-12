@@ -116,7 +116,7 @@ abstract class HTML_QuickForm2_Element_Captcha
      */
     protected function generateCaptcha()
     {
-        $this->getSession()->init($this->getSessionVarName());
+        $this->getSession()->setVarname($this->getSessionVarName());
         $this->capGenerated = true;
 
         if ($this->getSession()->hasData()) {

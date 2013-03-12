@@ -163,20 +163,23 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHA
             return true;
         }
 
-        //verify given answer with our answer
-        $userSolution = $this->getValue();
-
         if ($this->getSession()->answer === null) {
             //no captcha answer?
+            //FIXME: regenerate question + answer
             return false;
-        } else {
-            if ($this->getSession()->answer != $userSolution) {
-                return false;
-            } else {
-                $this->getSession()->solved = true;
-                return true;
-            }
         }
+
+        //verify given answer with our answer
+        $userSolution = $this->getValue();
+        if ($userSolution === null) {
+            return false;
+        }
+        if ($this->getSession()->answer != $userSolution) {
+            return false;
+        }
+
+        $this->getSession()->solved = true;
+        return true;
     }
 
     /**

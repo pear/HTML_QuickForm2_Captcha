@@ -51,7 +51,25 @@ class HTML_QuickForm2_Element_Captcha_Image
     protected $imageSuffix = '.png';
 
     /**
-     * Constructor. Set adapter specific data attributes.
+     * Set adapter specific data attributes.
+     *
+     * Special $data attributes:
+     * - imageDir - Full path to captcha image storage directory
+     * - imageDirUrl - URL-based path to captcha image storage directory
+     * - output      - Image format ("png", "jpg", "gif", "resource")
+     * - width       - Image width
+     * - height      - Image height
+     * - phrase        - Pre-defined captcha answer
+     * - phraseOptions - Array of options for Text_Password
+     * - imageOptions: array(
+     *       font_size
+     *       font_path
+     *       font_file
+     *       text_color
+     *       background_color
+     *       lines_color
+     *       antialias
+     *   )
      *
      * @param string $name       Element name
      * @param mixed  $attributes Attributes (either a string or an array)

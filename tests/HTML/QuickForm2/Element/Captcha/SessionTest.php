@@ -1,6 +1,9 @@
 <?php
 require_once 'HTML/QuickForm2/Element/Captcha/Session.php';
 
+/**
+ * @preserveGlobalState disabled
+ */
 class HTML_QuickForm2_Element_Captcha_SessionTest
     extends PHPUnit_Framework_TestCase
 {

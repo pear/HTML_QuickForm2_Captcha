@@ -97,9 +97,12 @@ abstract class HTML_QuickForm2_Element_Captcha
         $this->data['captchaSolutionWrong']  = 'Captcha solution is wrong';
         $this->data['captchaSolved']         = 'Captcha already solved';
         $this->data['captchaRender']         = true;
-        $this->data['captchaHtmlAttributes'] = array(
-            'class' => 'qf2-captcha-question'
-        );
+
+        if (!isset($this->data['captchaHtmlAttributes']['class'])) {
+            $this->data['captchaHtmlAttributes']['class'] = '';
+        }
+        $this->data['captchaHtmlAttributes']['class']
+            .= ' qf2-captcha-question';
 
         parent::__construct($name, $attributes, $data);
     }

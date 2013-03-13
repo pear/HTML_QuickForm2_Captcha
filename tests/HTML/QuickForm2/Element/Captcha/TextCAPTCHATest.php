@@ -141,6 +141,46 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHATest
         $this->assertEquals($one, $two);
     }
 
+    public function test__toString()
+    {
+        $ses = new HTML_QuickForm2_Element_Captcha_Session_Mock();
+        $tc = new HTML_QuickForm2_Element_Captcha_TextCAPTCHA(
+            'foo', array('id' => 'foo'),
+            array('captchaType' => 'Word', 'phrase' => '123')
+        );
+        $tc->setSession($ses);
+        $html = (string)$tc;
+
+        $this->assertContains(
+            'one two three', $html,
+            'Captcha question is missing'
+        );
+        $this->assertContains(
+            'qf2-captcha-question', $html,
+            'Captcha question class is missing'
+        );
+        $this->assertContains(
+            'qf2-captcha-textcaptcha-word', $html,
+            'Captcha type class is missing'
+        );
+    }
+
+    public function test__toStringNoRender()
+    {
+        $ses = new HTML_QuickForm2_Element_Captcha_Session_Mock();
+        $tc = new HTML_QuickForm2_Element_Captcha_TextCAPTCHA(
+            'foo', array('id' => 'foo'),
+            array('captchaType' => 'Word', 'phrase' => '123', 'captchaRender' => false)
+        );
+        $tc->setSession($ses);
+        $html = (string)$tc;
+
+        $this->assertNotContains(
+            'one two three', $html,
+            'Captcha question should not be rendered'
+        );
+    }
+
     public function testGenerateCaptchaSameSession()
     {
         $ses = new HTML_QuickForm2_Element_Captcha_Session_Mock();

@@ -40,10 +40,10 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHA
     /**
      * Constructor. Set adapter specific data attributes.
      *
-     * Text_CAPTCHA settings are provided in $data['captcha'].
+     * Text_CAPTCHA settings are provided in $data.
      * $data['captchaType'] specifies the Text_CAPTCHA driver name,
      * e.g. "Equation", "Figlet" or "Word".
-     * All other data['captcha'] settings are passed to it's init() method.
+     * All other $data settings are passed to it's init() method.
      *
      * Do not use this class directly for the "Image" type,
      * there is an own class for that one.
@@ -55,6 +55,14 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHA
     public function __construct(
         $name = null, $attributes = null, $data = array()
     ) {
+        if (!isset($this->data['captchaHtmlAttributes']['class'])) {
+            $this->data['captchaHtmlAttributes']['class'] = '';
+        }
+        if (isset($data['captchaType'])) {
+            $this->data['captchaHtmlAttributes']['class']
+                .= ' qf2-captcha-textcaptcha-'
+                . strtolower($data['captchaType']);
+        }
         parent::__construct($name, $attributes, $data);
     }
 

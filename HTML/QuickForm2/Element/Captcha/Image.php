@@ -148,45 +148,36 @@ class HTML_QuickForm2_Element_Captcha_Image
             $this->adapter->getCAPTCHA()
         );
 
-        // Clean up old images
-        if (mt_rand(1, 10) == 1) {
-            $this->garbageCollection();
-        }
+        $this->garbageCollection();
 
         return true;
     }
 
     /**
-     * Returns the HTML for the captcha question and answer.
+     * Renders the CAPTCHA question in HTML and returns it.
+     * Returns empty string when "captchaRender" option is false.
      *
-     * Used in __toString() and to be used when $data['captchaRender']
-     * is set to false.
-     *
-     * @uses $data['captchaHtmlAttributes'].
-     *
-     * @return string HTML code
+     * @return string HTML
      */
-    public function getCaptchaHtml()
+    protected function renderQuestion()
     {
-        $prefix = '';
-
-        if ($this->data['captchaRender']) {
-            $prefix = '<div'
-                . self::getAttributesString(
-                    $this->data['captchaHtmlAttributes']
-                ) . '>'
-                . '<img width="' . intval($this->getSession()->imageWidth) . '"'
-                . ' height="' . intval($this->getSession()->imageHeight) . '"'
-                . ' alt="CAPTCHA"'
-                . ' src="' . htmlspecialchars(
-                    $this->imageDirUrl . $this->getSession()->question
-                    . '?ts=' . time()
-                ) . '"'
-                . '/>'
-                . '</div>';
+        if (!$this->data['captchaRender']) {
+            return '';
         }
 
-        return $prefix . '<input' . $this->getAttributes(true) . ' />';
+        return  '<div'
+            . self::getAttributesString(
+                $this->data['captchaHtmlAttributes']
+            ) . '>'
+            . '<img width="' . intval($this->getSession()->imageWidth) . '"'
+            . ' height="' . intval($this->getSession()->imageHeight) . '"'
+            . ' alt="CAPTCHA"'
+            . ' src="' . htmlspecialchars(
+                $this->imageDirUrl . $this->getSession()->question
+                . '?ts=' . time()
+            ) . '"'
+            . '/>'
+            . '</div>';
     }
 
     /**
@@ -196,6 +187,10 @@ class HTML_QuickForm2_Element_Captcha_Image
      */
     protected function garbageCollection()
     {
+        // Clean up old images
+        if (mt_rand(1, 10) != 1) {
+            return;
+        }
         if (!$this->imageDir || (strlen($this->imageDir) < 2)) {
             return;
         }

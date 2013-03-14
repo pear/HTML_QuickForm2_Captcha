@@ -79,6 +79,13 @@ class HTML_QuickForm2_Element_Captcha_Image
         $name = null, $attributes = null, $data = array()
     ) {
         $this->data['captchaType'] = 'Image';
+
+        if (!isset($this->data['captchaHtmlAttributes']['class'])) {
+            $this->data['captchaHtmlAttributes']['class'] = '';
+        }
+        $this->data['captchaHtmlAttributes']['class']
+            .= ' qf2-captcha-image';
+
         if (isset($data['imageDir'])) {
             $this->imageDir = self::fixPath($data['imageDir']);
         }
@@ -147,45 +154,6 @@ class HTML_QuickForm2_Element_Captcha_Image
         }
 
         return true;
-    }
-
-    /**
-     * Checks if the captcha is solved now.
-     * Uses $capSolved variable or user input, which is compared
-     * with the pre-set correct answer.
-     *
-     * Calls generateCaptcha() if it has not been called before.
-     *
-     * In case user solution and answer match, a session variable
-     * is set so that the captcha is seen as completed across
-     * form submissions.
-     *
-     * @uses $capGenerated
-     * @uses generateCaptcha()
-     *
-     * @return boolean TRUE if the captcha is solved
-     */
-    protected function verifyCaptcha()
-    {
-        // Check session and generate captcha if necessary
-        if (parent::verifyCaptcha()) {
-            return true;
-        }
-
-        // Verify given answer with our answer
-        $userSolution = $this->getValue();
-
-        if ($this->getSession()->answer === null) {
-            //no captcha answer?
-            return false;
-        } else {
-            if ($this->getSession()->answer != $userSolution) {
-                return false;
-            } else {
-                $this->getSession()->solved = true;
-                return true;
-            }
-        }
     }
 
     /**

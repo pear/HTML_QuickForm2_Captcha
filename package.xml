@@ -6,7 +6,8 @@
  xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
   http://pear.php.net/dtd/tasks-1.0.xsd
   http://pear.php.net/dtd/package-2.0
-  http://pear.php.net/dtd/package-2.0.xsd">
+  http://pear.php.net/dtd/package-2.0.xsd"
+>
  <name>HTML_QuickForm2_Captcha</name>
  <channel>pear.php.net</channel>
  <summary>Captcha package for QuickForm2</summary>
@@ -28,15 +29,16 @@
  </lead>
  <developer>
   <name>Rico Sonntag</name>
+  <user>ricson</user>
   <email>mail@ricosonntag.de</email>
   <active>yes</active>
  </developer>
 
- <date>2010-05-25</date>
+ <date>2013-07-17</date>
 
  <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
  </version>
 
  <stability>
@@ -47,7 +49,8 @@
  <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
 
  <notes>
-  - First public version
+  - First release
+  - Unit tests
  </notes>
 
  <contents>
@@ -59,9 +62,6 @@
        <tasks:replace type="package-info" from="@version@" to="version" />
       </file>
       <dir name="Captcha">
-       <file role="php" name="Figlet.php">
-        <tasks:replace type="package-info" from="@version@" to="version" />
-       </file>
        <file role="php" name="Image.php">
         <tasks:replace type="package-info" from="@version@" to="version" />
        </file>
@@ -125,6 +125,23 @@
  <phprelease />
 
  <changelog>
+
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2013-07-17</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+    - First release
+    - Unit tests
+   </notes>
+  </release>
 
   <release>
    <version>

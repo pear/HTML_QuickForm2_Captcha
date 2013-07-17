@@ -21,11 +21,12 @@ require_once 'HTML/QuickForm2/Element/Captcha/Exception.php';
  *
  * In case you need to customize the options, use getAdapter() and
  * modify the object.
-
+ *
  * @category HTML
  * @package  HTML_QuickForm2_Captcha
  * @author   Rico Sonntag <rico.sonntag@netresearch.de>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
+ * @version  Release: @version@
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  * @see      http://pear.php.net/package/Text_CAPTCHA
  */

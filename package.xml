@@ -55,14 +55,28 @@
    <dir name="HTML">
     <dir name="QuickForm2">
      <dir name="Element">
-      <file role="php" name="Captcha.php" />
+      <file role="php" name="Captcha.php">
+       <tasks:replace type="package-info" from="@version@" to="version" />
+      </file>
       <dir name="Captcha">
-       <file role="php" name="Figlet.php" />
-       <file role="php" name="Image.php" />
-       <file role="php" name="Numeral.php" />
-       <file role="php" name="ReCaptcha.php" />
-       <file role="php" name="Session.php" />
-       <file role="php" name="TextCAPTCHA.php" />
+       <file role="php" name="Figlet.php">
+        <tasks:replace type="package-info" from="@version@" to="version" />
+       </file>
+       <file role="php" name="Image.php">
+        <tasks:replace type="package-info" from="@version@" to="version" />
+       </file>
+       <file role="php" name="Numeral.php">
+        <tasks:replace type="package-info" from="@version@" to="version" />
+       </file>
+       <file role="php" name="ReCaptcha.php">
+        <tasks:replace type="package-info" from="@version@" to="version" />
+       </file>
+       <file role="php" name="Session.php">
+        <tasks:replace type="package-info" from="@version@" to="version" />
+       </file>
+       <file role="php" name="TextCAPTCHA.php">
+        <tasks:replace type="package-info" from="@version@" to="version" />
+       </file>
       </dir>
      </dir>
     </dir>

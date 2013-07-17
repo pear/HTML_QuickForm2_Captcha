@@ -20,10 +20,10 @@ require_once 'HTML/QuickForm2/Exception.php';
  * @package  HTML_QuickForm2_Captcha
  * @author   Christian Weiske <cweiske@php.net>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
+ * @version  Release: @version@
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  */
 class HTML_QuickForm2_Element_Captcha_Exception extends HTML_QuickForm2_Exception
 {
 }
 ?>
-

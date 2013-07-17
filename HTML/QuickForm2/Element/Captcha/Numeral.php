@@ -8,7 +8,6 @@
  * @package  HTML_QuickForm2_Captcha
  * @author   Christian Weiske <cweiske@php.net>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
- * @version  SVN: $Id: InputText.php 294057 2010-01-26 21:10:28Z avb $
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  */
 
@@ -31,6 +30,7 @@ require_once 'HTML/QuickForm2/Element/Captcha/Exception.php';
  * @package  HTML_QuickForm2_Captcha
  * @author   Christian Weiske <cweiske@php.net>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
+ * @version  Release: @version@
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  * @see      http://pear.php.net/package/Text_CAPTCHA_Numeral
  */

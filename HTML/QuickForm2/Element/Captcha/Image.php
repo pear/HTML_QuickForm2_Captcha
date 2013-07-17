@@ -18,11 +18,11 @@ require_once 'HTML/QuickForm2/Element/Captcha/TextCAPTCHA.php';
  * Displays an captcha rendered as image.
  * Some obfuscation is applied to the image.
  *
- *
  * @category HTML
  * @package  HTML_QuickForm2_Captcha
  * @author   Rico Sonntag <rico.sonntag@netresearch.de>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
+ * @version  Release: @version@
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  * @see      http://pear.php.net/package/Text_CAPTCHA
  */
@@ -201,9 +201,7 @@ class HTML_QuickForm2_Element_Captcha_Image
         foreach (new DirectoryIterator($this->imageDir) as $file) {
             if (!$file->isDot() && !$file->isDir()) {
                 if ($file->getMTime() < $expireTime) {
-                    if (substr($file->getFilename(), -$suffixLength)
-                        == $this->imageSuffix
-                    ) {
+                    if (substr($file->getFilename(), -$suffixLength) == $this->imageSuffix) {
                         unlink($file->getPathname());
                     }
                 }

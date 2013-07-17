@@ -35,6 +35,7 @@ require_once 'HTML/QuickForm2/Element/Captcha/Session.php';
  * @package  HTML_QuickForm2_Captcha
  * @author   Christian Weiske <cweiske@php.net>
  * @license  http://www.gnu.org/copyleft/lesser.html LGPL License
+ * @version  Release: @version@
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  *
  * @FIXME/@TODO

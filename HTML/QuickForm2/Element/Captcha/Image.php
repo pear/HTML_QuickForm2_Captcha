@@ -138,15 +138,17 @@ class HTML_QuickForm2_Element_Captcha_Image
         $session = $this->getSession();
 
         $captchaFile = $session->getSessionId() . $this->imageSuffix;
-        $session->question    = $captchaFile;
-        $session->imageHeight = $this->adapter->_height;
-        $session->imageWidth  = $this->adapter->_width;
 
         // Save image to file
         file_put_contents(
             $this->imageDir . $captchaFile,
             $this->adapter->getCAPTCHA()
         );
+
+        list($width, $height) = getimagesize($this->imageDir . $captchaFile);
+        $session->question    = $captchaFile;
+        $session->imageHeight = $height;
+        $session->imageWidth  = $width;
 
         $this->garbageCollection();
 

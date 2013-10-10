@@ -62,6 +62,9 @@
        <tasks:replace type="package-info" from="@version@" to="version" />
       </file>
       <dir name="Captcha">
+       <file role="php" name="Exception.php">
+        <tasks:replace type="package-info" from="@version@" to="version" />
+       </file>
        <file role="php" name="Image.php">
         <tasks:replace type="package-info" from="@version@" to="version" />
        </file>
@@ -77,6 +80,11 @@
        <file role="php" name="TextCAPTCHA.php">
         <tasks:replace type="package-info" from="@version@" to="version" />
        </file>
+       <dir name="Session">
+        <file role="php" name="Mock.php">
+         <tasks:replace type="package-info" from="@version@" to="version" />
+        </file>
+       </dir>
       </dir>
      </dir>
     </dir>
@@ -86,6 +94,26 @@
      <file role="doc" name="demo-captcha.php" />
      <file role="doc" name="numeral-captcha.php" />
      <dir name="tmp">
+     </dir>
+    </dir>
+   </dir>
+   <dir name="tests">
+    <file role="test" name="bootstrap.php" />
+    <file role="test" name="phpunit.xml" />
+    <dir name="data">
+     <file role="test" name="LiberationMono-Regular.ttf" />
+    </dir>
+    <dir name="HTML">
+     <dir name="QuickForm2">
+      <dir name="Element">
+       <file role="test" name="CaptchaTest.php" />
+       <dir name="Captcha">
+        <file role="test" name="ImageTest.php" />
+        <file role="test" name="NumeralTest.php" />
+        <file role="test" name="SessionTest.php" />
+        <file role="test" name="TextCAPTCHATest.php" />
+       </dir>
+      </dir>
      </dir>
     </dir>
    </dir>

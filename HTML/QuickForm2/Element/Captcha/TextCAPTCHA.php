@@ -11,6 +11,7 @@
  * @link     http://pear.php.net/package/HTML_QuickForm2_Captcha
  */
 
+require_once 'PEAR.php';
 require_once 'Text/CAPTCHA.php';
 require_once 'HTML/QuickForm2/Element/Captcha.php';
 require_once 'HTML/QuickForm2/Element/Captcha/Exception.php';

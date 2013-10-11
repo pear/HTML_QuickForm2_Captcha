@@ -53,7 +53,7 @@ class HTML_QuickForm2_Element_Captcha_ImageTest
         $f = (string)$ic;
         $this->assertEquals(
             '<div class="captcha-exception">'
-            . 'Error: Error initializing Image_Text (You must supply a font file.)'
+            . 'Error: You must supply a font file.'
             . '</div>',
             $f
         );

@@ -73,9 +73,7 @@ $form->addElement(
         array(
             'label' => 'Figlet',
             'captchaType' => 'Figlet',
-            'options' => array(
-                'font_file' => 'makisupa.flf'
-            ),
+            'font_file' => 'makisupa.flf'
         )
     )
 );

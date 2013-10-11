@@ -68,7 +68,7 @@ class HTML_QuickForm2_Element_Captcha_TextCAPTCHATest
 
         $adapter = $tc->getAdapter();
         $this->assertNotNull($adapter);
-        $this->assertInstanceOf('Text_CAPTCHA_Driver_Word', $adapter);
+        $this->assertInstanceOf('Text_CAPTCHA', $adapter);
     }
 
     public function testSetAdapter()

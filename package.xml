@@ -19,6 +19,7 @@
   Available plugins:
   - ReCaptcha.net
   - Mathematical questions (numeral captcha)
+  - Text_CAPTCHA (image, figlet, words, equations)
  </description>
 
  <lead>
@@ -34,11 +35,11 @@
   <active>yes</active>
  </developer>
 
- <date>2013-07-17</date>
+ <date>2013-10-11</date>
 
  <version>
-  <release>0.1.0</release>
-  <api>0.1.0</api>
+  <release>0.1.1</release>
+  <api>0.1.1</api>
  </version>
 
  <stability>
@@ -49,8 +50,11 @@
  <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
 
  <notes>
-  - First release
-  - Unit tests
+  - adapt to Text_CAPTCHA 0.5.0 changes
+  - Fix bug #20083: img tag (Image captcha) missing height and width
+  - Fix bug #20082: Text_CAPTCHA dependency missing
+  - Fix bug #20084: PEAR.php not included but using PEAR::isError
+  - Fix bug #20080: Exception.php missing from package.xml
  </notes>
 
  <contents>
@@ -159,6 +163,26 @@
  <phprelease />
 
  <changelog>
+
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2013-10-11</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+    - adapt to Text_CAPTCHA 0.5.0 changes
+    - Fix bug #20083: img tag (Image captcha) missing height and width
+    - Fix bug #20082: Text_CAPTCHA dependency missing
+    - Fix bug #20084: PEAR.php not included but using PEAR::isError
+    - Fix bug #20080: Exception.php missing from package.xml
+   </notes>
+  </release>
 
   <release>
    <version>

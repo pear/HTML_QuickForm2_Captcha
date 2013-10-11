@@ -100,6 +100,7 @@
    <dir name="tests">
     <file role="test" name="bootstrap.php" />
     <file role="test" name="phpunit.xml" />
+    <file role="test" name="AllTests.php" />
     <dir name="data">
      <file role="test" name="LiberationMono-Regular.ttf" />
     </dir>

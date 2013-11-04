@@ -35,10 +35,10 @@
   <active>yes</active>
  </developer>
 
- <date>2013-10-11</date>
+ <date>2013-11-04</date>
 
  <version>
-  <release>0.1.1</release>
+  <release>0.1.2</release>
   <api>0.1.1</api>
  </version>
 
@@ -50,11 +50,7 @@
  <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
 
  <notes>
-  - adapt to Text_CAPTCHA 0.5.0 changes
-  - Fix bug #20083: img tag (Image captcha) missing height and width
-  - Fix bug #20082: Text_CAPTCHA dependency missing
-  - Fix bug #20084: PEAR.php not included but using PEAR::isError
-  - Fix bug #20080: Exception.php missing from package.xml
+  - Make package.xml validate against xsd
  </notes>
 
  <contents>
@@ -97,8 +93,6 @@
     <dir name="examples">
      <file role="doc" name="demo-captcha.php" />
      <file role="doc" name="numeral-captcha.php" />
-     <dir name="tmp">
-     </dir>
     </dir>
    </dir>
    <dir name="tests">
@@ -163,6 +157,22 @@
  <phprelease />
 
  <changelog>
+
+  <release>
+   <version>
+    <release>0.1.2</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2013-11-04</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+    - Make package.xml validate against xsd
+   </notes>
+  </release>
 
   <release>
    <version>

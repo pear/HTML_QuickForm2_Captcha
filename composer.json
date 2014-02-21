@@ -1,0 +1,37 @@
+{
+    "authors": [
+        {
+            "email": "cweiske@php.net",
+            "name": "Christian Weiske",
+            "role": "Lead"
+        },
+        {
+            "email": "mail@ricosonntag.de",
+            "name": "Rico Sonntag",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    },
+    "description": "Captcha element for QuickForm2",
+    "license": "LGPL",
+    "name": "pear/html_quickform2_captcha",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=HTML_QuickForm2_Captcha",
+        "source": "https://github.com/pear/HTML_QuickForm2_Captcha"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*",
+        "pear/html_quickform2": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "suggest": {
+        "pear/services_recaptcha": "Install optionally via your project's composer.json"
+    }
+}
